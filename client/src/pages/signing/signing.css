@@ -1,122 +1,121 @@
-.signing-section{
-    width: 100vw;
-    min-height: 100vh;
-    display: grid;
-    place-content: center;
-    padding: 2rem 0;
+.signing-section {
+  width: 100vw;
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+  padding: 2rem 0;
 }
-.signing-header{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.signing-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.signing-form{
-    width: 100%;
+.signing-form {
+  width: 100%;
 }
-.logo-container{
-    --size:5rem;
-    height: var(--size);
-    width: var(--size);
-    /* background-color: var(--light-btn); */
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.logo-container {
+  --size: 5rem;
+  height: var(--size);
+  width: var(--size);
+  /* background-color: var(--light-btn); */
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.mutmee-logo{
-    width: 70%;
-    height: 70%;
-    object-fit: cover;
+.mutmee-logo {
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
 }
-.signing-header h1{
-    text-transform: capitalize;
-    font-size: 18px;
-    text-align: center;
-    margin: .5rem;
-    letter-spacing: 1px;
+.signing-header h1 {
+  text-transform: capitalize;
+  font-size: 18px;
+  text-align: center;
+  margin: 0.5rem;
+  letter-spacing: 1px;
 }
-.form-input{
-    margin: .5rem 0;
+.form-input {
+  margin: 0.5rem 0;
 }
-.form-input label{
-    text-transform: capitalize;
-    font-size: 15px;
+.form-input label {
+  text-transform: capitalize;
+  font-size: 15px;
 }
-.input-wrapper{
-    position: relative;
+.input-wrapper {
+  margin-top: 0.2rem;
+  position: relative;
 }
-.input-wrapper input{
-    padding: .5rem 1rem;
-    font-size: 18px;
-    border-radius: var(--radius);
-    border: 1px solid var(--light-border);
-    outline-color:var(--theme-color);
-    /* text-transform: capitalize; */
-    
+.input-wrapper input {
+  padding: 0.5rem 1rem;
+  font-size: 17px;
+  border-radius: var(--radius);
+  border: 1px solid var(--light-border);
+  outline-color: var(--theme-color);
+  /* text-transform: capitalize; */
 }
 /* input[type="email"], input[type="password"]{
     text-transform: none;
   } */
-.input-icon{
-    position: absolute;
-    height: 100%;
-    right: .5rem;
-    top: 0;
-    display: grid;
-    place-content: center;
-    cursor: pointer;
+.input-icon {
+  position: absolute;
+  height: 100%;
+  right: 0.5rem;
+  top: 0;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
 }
-.input-icon svg{
-    fill: var(--theme-color);
-    font-size: 18px;
+.input-icon svg {
+  color: var(--theme-color);
+  font-size: 18px;
 }
-.form-small-text{
-    font-size: 13px;
+.form-small-text {
+  font-size: 13px;
 }
-.forgot{
-    text-align: end;
+.forgot {
+  text-align: end;
 }
-.form-small-text a{
-    color: blue;
+.form-small-text a {
+  color: blue;
 }
 .or {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    margin: .5rem 0;
-  }
-  .or:before,
-  .or:after {
-    content: " ";
-    width: 35%;
-    height: 1px;
-    display: block;
-    position: absolute;
-    top: 50%;
-    background-color: var(--light-border);
-  }
-  .or:before {
-    left: 1rem;
-  }
-  .or:after {
-    right: 1rem;
-  }
-  .or span {
-    text-transform: uppercase;
-  }
-  .third-party-signing-container{
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    border:1px solid var(--light-border);
-    border-radius: var(--radius);
-    padding: .3rem 1rem;
-  }
-  .third-party-signing-container a{
-    font-size: 14px;
-    text-transform:capitalize;
-  }
-
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+.or:before,
+.or:after {
+  content: " ";
+  width: 35%;
+  height: 1px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  background-color: var(--light-border);
+}
+.or:before {
+  left: 1rem;
+}
+.or:after {
+  right: 1rem;
+}
+.or span {
+  text-transform: uppercase;
+}
+.third-party-signing-container {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border: 1px solid var(--light-border);
+  border-radius: var(--radius);
+  padding: 0.3rem 1rem;
+}
+.third-party-signing-container a {
+  font-size: 14px;
+  text-transform: capitalize;
+}
