@@ -10,7 +10,7 @@ const Menu = () => {
         <div className="menu-header-logo">
           <img src={logo} alt="mutmee logo" />
         </div>
-        <h1 className="menu-header-text">Mutmeet</h1>
+        <h1 className="menu-header-text">Mutmee</h1>
       </div>
       <nav>
         <ul className="menu-items">
