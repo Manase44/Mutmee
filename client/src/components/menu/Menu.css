@@ -1,0 +1,66 @@
+.menu-header{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 0;
+}
+.menu-header-logo{
+    display: grid;
+    place-content: center;
+}
+.menu-header-logo img{
+    width: 5rem;
+}
+.menu-header-text{
+    text-align: center;
+    font-family: var(--cursive);
+}
+.menu-items,.menu-more-cta{
+    padding:0 .5rem;
+}
+.menu-items li a, .menu-more-cta a{
+    display: flex;
+    align-items: center;
+    gap:.8rem;
+    padding: .5rem .8rem;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+.menu-items li a svg, .menu-more-cta a svg{
+    font-size: 25px;
+}
+.menu-items li:hover, .menu-items li a:active{
+    border-radius: var(--radius);
+    background-color: var(--light-border);
+    font-weight: 600;
+}
+.menu-more-cta{
+    position: absolute;
+    bottom: .5rem;
+}
+@media screen and (max-width:768px) {
+    .menu-items{
+        padding: .5rem 0;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+    }
+    .menu-items li a span,.menu-more-cta span {
+        display: none;
+    }
+    .menu-more-cta{
+        display: none;
+        position: unset;
+    }
+}
+@media screen and (max-width:576px) {
+    .menu-items{
+        gap: 1rem;
+    }
+}
+@media screen and (max-width:400px) {
+    .menu-items{
+        gap: 0;
+    }
+}

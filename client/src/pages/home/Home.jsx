@@ -1,10 +1,16 @@
-import "./Home.css";
-import Menu from "../../components/menu/Menu";
+import Menu from "../../components/menu/Menu"
+import './Home.css';
 
 const Home = () => {
-  <div className="home-conatiner">
-    <Menu/>
-  </div>
-};
+  return (
+    <div className="home-main-container">
+      <aside>
+        <Menu/>
+      </aside>
+      <main></main>
+    </div>
+  )
+}
 
-export default Home;
+export default Home
+
