@@ -53,3 +53,42 @@ a {
   text-decoration: none;
   color: inherit;
 }
+.main-container{
+  width: 100vw;
+  display: flex;
+}
+.main-container aside{
+  border-right: 1px solid var(--light-border);
+  height: 100vh;
+  width: 14%;
+}
+.main-container main{
+  width: 86%;
+}
+@media screen and (max-width: 1200px) {
+  .main-container aside{
+      width: 17%;
+  }
+  .main-container main{
+      width: 83%;
+  }
+}
+@media screen and (max-width: 992px) {
+  .main-container aside{
+      width: 20%;
+  }
+  .main-container main{
+      width: 80%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .main-container main{
+      width: 100vw;
+  }
+  .main-container aside{
+      position: absolute;
+      bottom: 0;
+      width: 100vw;
+      height: unset;
+  }
+}

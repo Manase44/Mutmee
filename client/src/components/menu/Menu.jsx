@@ -21,7 +21,7 @@ const Menu = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/expore">
+            <NavLink to="/explore">
               <BiSolidUserDetail />
               <span>explore</span></NavLink>
           </li>
