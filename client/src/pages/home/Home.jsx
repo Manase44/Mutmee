@@ -1,7 +1,10 @@
-import React from "react";
+import "./Home.css";
+import Menu from "../../components/menu/Menu";
 
 const Home = () => {
-  return <div>Home</div>;
+  <div className="home-conatiner">
+    <Menu/>
+  </div>
 };
 
 export default Home;
