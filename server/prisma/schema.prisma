@@ -24,6 +24,7 @@ model Profile{
   imageUrl String?
   bio String?
   website String?
+  phoneNumber String?
   role String?
 
   userId String @unique
