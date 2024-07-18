@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +5,62 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User{
+  id String @id @default(uuid())
+  userName String @unique
+  emailAddress String @unique
+  password String
+  registeredAt DateTime @default(now())
+
+  profile Profile?
+  posts Post[]
+  comments Comment[]
+  articles Article[]
+}
+
+model Profile{
+  imageUrl String?
+  bio String?
+  website String?
+  role String?
+
+  userId String @unique
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Post{
+  postId String @id @default(uuid())
+  mediaUrl String
+  caption String?
+  publishedAt DateTime @default(now())
+  likes Int @default(0)
+
+  posterId String
+  poster User @relation(fields: [posterId], references: [id], onDelete: Cascade)
+
+  comments Comment[]
+}
+
+model Comment{
+  commentId String @id @default(uuid())
+  text String
+
+  postId String
+  post Post @relation(fields: [postId], references: [postId], onDelete: Cascade)
+
+  commentedBy String
+  user User @relation(fields: [commentedBy], references: [id], onDelete: Cascade)
+}
+
+model Article{
+  articleId String @id @default(uuid())
+  articleTitle String
+  articleImageUrl String?
+  articleContent String
+  likes Int @default(0)
+
+  authorId String
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
