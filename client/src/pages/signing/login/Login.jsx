@@ -1,5 +1,5 @@
 import "../signing.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import { BiSolidUserDetail } from "react-icons/bi";
@@ -9,11 +9,17 @@ import { useState } from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { authUser } from "../../../../utils/firebase.config";
 import axios from "axios";
+import { server_url } from "../../../../utils/configurations"; 
+import toast from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/success.css';
 
 const googleProvider = new GoogleAuthProvider();
 
 const Login = () => {
   const [showPassword, setShowpassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleShowPassword = () => {
     if (showPassword) {
@@ -23,6 +29,22 @@ const Login = () => {
     }
   };
 
+  const handleUserLogin = async(data) => {
+    setLoading(true)
+    try {
+      const response = await axios.post(`${server_url}/user/login`, data)
+      if (response.data.ok) {
+        setError(null)
+        toast(response.data.message, {theme:"success", duration:4000, position:"top-right"})
+        navigate("/home");
+      }
+    } catch (error) {
+      setError(error.response.data.message)
+    }finally{
+      setLoading(false)
+    }
+  }
+
   const handleSigningWithGoole = async () => {
     try {
       const response = await signInWithPopup(authUser, googleProvider);
@@ -31,9 +53,10 @@ const Login = () => {
       console.log(error);
     }
   };
+
   const validation = object({
     userName: string().required("username is required"),
-    password: string().required("password is required"),
+    password: string().required("password is required").min(8, "must have atleast 8 characters").max(25, "must have at most 25 characters")
   });
 
   const signingForm = useFormik({
@@ -44,6 +67,7 @@ const Login = () => {
     validationSchema: validation,
     onSubmit: (data) => {
       console.log(data);
+      handleUserLogin(data);
     },
   });
 
@@ -98,7 +122,8 @@ const Login = () => {
           <p className="form-small-text forgot">
             <Link>Forgot password?</Link>
           </p>
-          <button type="submit">login</button>
+          {error && <p className="error">{error}</p>}
+          <button type="submit" disabled={loading}>{loading ? "please wait...":"login"}</button>
           <p className="form-small-text">
             Don't have Mutmee account? <Link to={"/register"}>Creat one</Link>
           </p>
