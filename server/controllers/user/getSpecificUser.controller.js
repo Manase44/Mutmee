@@ -16,7 +16,7 @@ const getSpecificUser = async (req, res) => {
             return res.status(404).json({ok:false, message:"The user does not exist"})
         }
     } catch (error) {
-        return res.status(500).json({ ok: false, message: error.message })
+        return res.status(500).json({ ok: false, message: "something went wrong" })
     }
 }
 
