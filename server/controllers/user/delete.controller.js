@@ -10,7 +10,7 @@ const deleteUser = async(req, res) => {
                 id:userId
             }
         })
-        if (confirmExistence) {
+        if (!confirmExistence) {
             return res.status(404).json({ok:false, message:"The user does not exist"})
         }
         const deletedUser = await prisma.user.delete({
