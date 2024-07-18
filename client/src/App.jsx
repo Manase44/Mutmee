@@ -8,19 +8,23 @@ import Explore from "./pages/explore/Explore";
 import News from "./pages/news/News";
 import Post from "./pages/post/Post";
 import Profile from "./pages/profile/Profile";
+import ProtectedRoute from "./components/proctedRoute/ProtectedRoute";
+import MainPage from "./pages/main/MainPage";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<Home/>} />
-          <Route path="/explore" element={<Explore/>} />
-          <Route path="/post" element={<Post/>} />
-          <Route path="/news" element={<News/>} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="/" element={<MainPage/>}>
+            <Route path="/home" element={<Home />} />
+            <Route path="explore" element={<Explore />} />
+            <Route path="/post" element={<Post />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
           <Route path="*" element={<Notfound />} />
         </Routes>
       </BrowserRouter>

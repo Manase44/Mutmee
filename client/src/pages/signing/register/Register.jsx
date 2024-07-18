@@ -84,7 +84,6 @@ const Register = () => {
     },
     validationSchema: validation,
     onSubmit: (data) => {
-      console.log(data);
       handleRegisterUser(data)
     },
   });

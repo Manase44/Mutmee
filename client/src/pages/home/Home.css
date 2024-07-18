@@ -14,6 +14,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* color: #fff; */
 }
 .poster-details{
     display: flex;
@@ -27,7 +28,7 @@
     border-radius: 50%;
     background-color: var(--light-btn);
     overflow:hidden;
-    border: 2px solid red;
+    border: 2px solid var(--theme-color);
 }
 .poster-profile img{
     width: 100%;
@@ -53,4 +54,17 @@
 /* RIGHT SECTION */
 .right-content{
     width:30%;
+}
+@media screen and (max-width:992px) {
+    .post-card{
+        min-width: 70%;
+    }
+}
+@media screen and (max-width:576px) {
+    .viewing-section{
+        width: 100%;
+    }
+    .right-content{
+        display: none;
+    }
 }
