@@ -12,10 +12,12 @@ import axios from "axios";
 import { server_url } from "../../../../utils/configurations"; 
 import toast from 'react-simple-toasts';
 import 'react-simple-toasts/dist/theme/success.css';
+import authenticatedStore from "../../../store/authenticated.store";
 
 const googleProvider = new GoogleAuthProvider();
 
 const Login = () => {
+  const setIsAuthenticated = authenticatedStore((state) => state.setIsAuthenticated)
   const [showPassword, setShowpassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -34,9 +36,10 @@ const Login = () => {
     try {
       const response = await axios.post(`${server_url}/user/login`, data)
       if (response.data.ok) {
+        setIsAuthenticated(true)
         setError(null)
         toast(response.data.message, {theme:"success", duration:4000, position:"top-right"})
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       setError(error.response.data.message)
@@ -66,7 +69,6 @@ const Login = () => {
     },
     validationSchema: validation,
     onSubmit: (data) => {
-      console.log(data);
       handleUserLogin(data);
     },
   });

@@ -2,6 +2,11 @@ import './Menu.css'
 import { NavLink } from 'react-router-dom';
 import { BiSolidUserDetail } from "react-icons/bi";
 import logo from '../../assets/logo.png'
+import { MdHome, MdExplore, MdOutlineAddBox, MdMenu } from "react-icons/md";
+import { ImNewspaper } from "react-icons/im";
+
+
+
 
 const Menu = () => {
   return (
@@ -15,22 +20,22 @@ const Menu = () => {
       <nav>
         <ul className="menu-items">
           <li className='item'>
-            <NavLink to="/home">
-              <BiSolidUserDetail />
+            <NavLink to="/">
+              <MdHome />
               <span>home</span>
             </NavLink>
           </li>
           <li>
             <NavLink to="/explore">
-              <BiSolidUserDetail />
+              <MdExplore />
               <span>explore</span></NavLink>
           </li>
           <li>
-            <NavLink to="/post"><BiSolidUserDetail />
+            <NavLink to="/post"><MdOutlineAddBox />
               <span>post</span></NavLink>
           </li>
           <li>
-            <NavLink to="/news"><BiSolidUserDetail />
+            <NavLink to="/news"><ImNewspaper />
               <span>news</span></NavLink>
           </li>
           <li>
@@ -41,7 +46,7 @@ const Menu = () => {
       </nav>
       <div className='menu-more-cta'>
         <NavLink>
-          <BiSolidUserDetail />
+          <MdMenu />
           <span>more</span></NavLink>
       </div>
     </div>
