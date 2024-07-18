@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import logo from "../../../assets/logo-white-background.png";
 import { useFormik } from "formik";
 import { GoEye, GoEyeClosed } from "react-icons/go";
@@ -8,12 +8,19 @@ import { HiOutlineMail } from "react-icons/hi";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { authUser } from "../../../../utils/firebase.config";
 import { object, string, ref } from "yup";
+import axios from 'axios'
+import { server_url } from "../../../../utils/configurations"; 
+import toast from 'react-simple-toasts';
+import 'react-simple-toasts/dist/theme/success.css';
 
 const googleProvider = new GoogleAuthProvider();
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmassword, setShowConfirmpassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleShowPassword = () => {
     if (showPassword) {
@@ -29,6 +36,23 @@ const Register = () => {
       setShowConfirmpassword(true);
     }
   };
+
+  const handleRegisterUser = async(data) => {
+    setLoading(true)
+    try {
+      const response = await axios.post(`${server_url}/user/register`, data)
+      if (response.data.ok) {
+        setError(null)
+        toast(response.data.message, {theme:"success", duration:4000, position:"top-right"})
+        navigate("/")
+      }
+    } catch (error) {
+      setError(error.response.data.message)
+    }finally{
+      setLoading(false)
+    }
+  }
+
   const handleSigningWithGoole = async () => {
     try {
       const response = await signInWithPopup(authUser, googleProvider);
@@ -61,6 +85,7 @@ const Register = () => {
     validationSchema: validation,
     onSubmit: (data) => {
       console.log(data);
+      handleRegisterUser(data)
     },
   });
 
@@ -153,7 +178,8 @@ const Register = () => {
               <p className="error">{signingForm.errors.confirmPassword}</p>
             )}
         </div>
-        <button type="submit">register</button>
+        {error && <p className="error">{error}</p>}
+        <button type="submit" disabled={loading}>{loading ? "please wait..." : "register"}</button>
         <p className="form-small-text">
           Already have Mutmee account? <Link to={"/"}>Login</Link>
         </p>
