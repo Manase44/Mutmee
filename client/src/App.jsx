@@ -9,7 +9,7 @@ import News from "./pages/news/News";
 import Post from "./pages/post/Post";
 import Profile from "./pages/profile/Profile";
 import MainPage from "./pages/main/MainPage";
-import PrivateRoute from "./components/proctedRoute/PrivateRoute";
+import PrivateRoute from "./components/privateRoute/PrivateRoute";
 
 function App() {
   return (
