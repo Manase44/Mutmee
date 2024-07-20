@@ -3,6 +3,7 @@ import './Profile.css';
 import profile from '../../assets/post.jpg';
 import { Link } from 'react-router-dom';
 import { RxDotsHorizontal } from "react-icons/rx";
+import Footer from '../../components/footer/Footer';
 
 const Profile = () => {
   const posts = [1, 2, 3, 4, 5, 6, 7, 8]
@@ -21,7 +22,7 @@ const Profile = () => {
               <span>student</span>
             </div>
             <div className="settings-cta">
-              <RxDotsHorizontal />
+              <Link to={"/setting"}><RxDotsHorizontal /></Link>
             </div>
           </div>
           <div className="user-post-following">
@@ -38,7 +39,7 @@ const Profile = () => {
             <Link to={"https://manase.com"} target='_blank'>https://manase.com</Link>
           </div>
           <div className="user-profile-cta">
-            <Link>edit profile</Link>
+            <Link to={"/setting"}>edit profile</Link>
           </div>
         </div>
       </div>
@@ -68,6 +69,7 @@ const Profile = () => {
           ))}
         </div>
       </div>
+      <Footer/>
     </div>
   )
 }
