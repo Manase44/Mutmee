@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 
 const userLogin = async (req, res) => {
     const {userName, password} = req.body;
+    console.log(req.user)
 
     try {
         const confirmExistence = await prisma.user.findUnique({
