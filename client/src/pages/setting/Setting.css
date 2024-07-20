@@ -1,0 +1,80 @@
+.setting-page-container{
+    width: 100%;
+    display: flex;
+    padding: 1rem 0;
+}
+.setting-menu{
+    width: 25%;
+    border-right: 1px solid var(--light-border);
+    padding: .5rem 1rem;
+    
+    /* background-color: red; */
+}
+.setting-menu h3{
+    text-align:center;
+    text-transform: capitalize;
+    font-size: 17px;
+    margin-bottom: 1rem;
+}
+.setting-menu ul{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 1.2rem;
+}
+.setting-menu ul li a{
+    text-transform: capitalize;
+}
+.active-setting-link{
+    color: var(--theme-color);
+    font-weight: 600;
+}
+
+
+
+.selected-setting{
+    width: 75%;
+    padding: .5rem 5rem;
+    /* background-color: green; */
+}
+.selected-setting-container{
+    width: 100%;
+    display: grid;
+    gap: 1.4rem;
+}
+.selected-setting-container h4{
+    text-transform: capitalize;
+}
+.edit-image-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 1rem;
+    background-color: var(--light-btn);
+    border: 1px solid var(--light-border);
+    border-radius: var(--radius);
+}
+.edit-image-container button{
+    width: 30%;
+}
+.edit-bio-container p, .edit-website-container p{
+    text-transform: capitalize;
+    font-size: 14px;
+}
+.edit-bio-container textarea{
+    width: 100%;
+    margin-top: .2rem;
+    padding: .5rem .8rem;
+    border-radius: var(--radius);
+    font-size: 17px;
+}
+.edit-website-container input{
+    width: 100%;
+    margin-top: .2rem;
+}
+.edit-website-container a, .edit-bio-container a{
+    background-color: var(--theme-color);
+    color: var(--light-background);
+    border-radius: var(--radius);
+    padding: .2rem .5rem;
+} 
