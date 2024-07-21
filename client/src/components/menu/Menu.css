@@ -60,16 +60,18 @@
   position: absolute;
   bottom: 0.5rem;
 }
-
-.menu-more-modal{
-  border:none;
-  bottom: 0;
+.more-menu-content ul{
+  display: grid;
+  gap: 1rem;
+}
+.more-menu-content ul li a{
+  text-transform: capitalize;
 }
 
 
 @media screen and (max-width: 768px) {
   .menu-items {
-    padding: 0.5rem 0;
+    padding: unset;
     display: flex;
     justify-content: center;
     gap: 2rem;

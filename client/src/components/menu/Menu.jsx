@@ -1,22 +1,17 @@
 import "./Menu.css";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import profile from "../../assets/profile.jpg";
 import { MdHome, MdExplore, MdOutlineAddBox, MdMenu } from "react-icons/md";
 import { ImNewspaper } from "react-icons/im";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Modal from "../modal/Modal";
-import themeColorStore from "../../store/themeColor.store";
 import userDetailsStore from "../../store/currentUser.store";
+import MoreMenu from "./MoreMenu";
 
 const Menu = () => {
   const user = userDetailsStore((state) => state.user);
   const [show, setShow] = useState(false);
-  const {theme, setTheme} = themeColorStore();
   
-useEffect(() => {
-  document.documentElement.setAttribute("data-theme", theme)
-}, [theme])
   return (
     <div className="menu-container">
       <div className="menu-header">
@@ -62,15 +57,15 @@ useEffect(() => {
         </ul>
       </nav>
       <div className="menu-more-cta">
-        <NavLink onClick={setTheme}>
+        <NavLink onClick={() => setShow(true)}>
           <MdMenu />
           <span>more</span>
         </NavLink>
       </div>
       <Modal
-      show={show}
-      close={() => {setShow(false)}}
-      className={"menu-more-modal"}
+        show={show}
+        close={() => { setShow(false) }}
+        content={<MoreMenu/>}
       />
     </div>
   );

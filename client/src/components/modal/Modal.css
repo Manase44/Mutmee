@@ -1,0 +1,35 @@
+dialog{
+    border: none;
+    background-color: transparent;
+}
+.dialog-body{
+    padding: 1rem 2rem;
+    height: 90vh;
+    width: 16rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+.dialog-header{
+    display: flex;
+    justify-content: end;
+    padding: .5rem;
+}
+.dialog-header a svg{
+    transition: all .2s;
+    font-size: 20px;
+    color: var(--text-color);
+}
+.dialog-header a svg:hover{
+   color: red;
+}
+.dialog-content{
+    background-color: var(--light-background);
+    color: var(--text-color);
+    border-radius: var(--radius);
+    padding:.5rem 1rem;
+}
+dialog::backdrop{
+    background-color: var(--light-border);
+    opacity: .5;
+}

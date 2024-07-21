@@ -8,6 +8,7 @@
   height: 100vh;
   width: 14%;
   position: fixed;
+  z-index: 100;
 }
 
 .main-container main {
