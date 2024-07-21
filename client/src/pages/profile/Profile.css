@@ -136,6 +136,10 @@
   .profile-page-container {
     padding: 1.5rem 1rem;
   }
+  .user-profile-header {
+    justify-content: space-between;
+    gap: 1rem;
+  }
 }
 @media screen and (max-width: 768px) {
   .user-post-container {
@@ -153,9 +157,6 @@
   .user-post-container {
     grid-template-columns: repeat(1, 1fr);
   }
-  .user-profile-header {
-    gap: 7rem;
-  }
   .user-post-following {
     gap: 1rem;
   }
@@ -164,9 +165,6 @@
   .user-profile-image {
     --size: 7rem;
   }
-  .user-profile-header {
-    gap: 3rem;
-  }
   .user-post-following {
     flex-direction: column;
     align-items: baseline;
@@ -174,9 +172,6 @@
   }
 }
 @media screen and (max-width: 300px) {
-  .user-profile-header {
-    gap: 1rem;
-  }
   .profile-page-container {
     padding: 1.5rem 0.8rem;
   }

@@ -18,15 +18,13 @@ const Profile = () => {
   const getUserPosts = async (userId) => {
     setFetching(true)
     try {
-      const response = await axios.get(`${server_url}/post/user/${userId}`)
-      console.log(response)
-
+      const response = await axios.get(`${server_url}/post/user/${userId}`, {withCredentials:true})
+      
       if (response.data.ok) {
         setError(null);
         setUserPosts(response.data.userPosts)
       }
     } catch (error) {
-      console.log(error)
       setError(error.response.data.message)
     } finally {
       setFetching(false)
@@ -104,7 +102,7 @@ const Profile = () => {
           </ul>
         </div>
         {fetching ? <p className="user-post-container-message">Getting your posts...</p> :
-          error ? <p className="user-post-container-message">{error}</p> :
+          error ? <p className="user-post-container-message error">{error}</p> :
             <div className="user-post-container">
               {userPosts && userPosts.map((post, i) => (
                 <div className="user-post-card" key={i}>
