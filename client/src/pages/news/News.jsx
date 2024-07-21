@@ -1,7 +1,5 @@
 const News = () => {
-  return (
-    <p>news</p>
-  )
-}
+  return <p>news</p>;
+};
 
-export default News
+export default News;

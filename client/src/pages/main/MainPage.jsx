@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom'
-import Menu from '../../components/menu/Menu';
-import './MainPage.css'
+import { Outlet } from "react-router-dom";
+import Menu from "../../components/menu/Menu";
+import "./MainPage.css";
 
 const MainPage = () => {
   return (
@@ -9,10 +9,10 @@ const MainPage = () => {
         <Menu />
       </aside>
       <main>
-       <Outlet/>
+        <Outlet />
       </main>
     </div>
-  )
-}
+  );
+};
 
 export default MainPage;

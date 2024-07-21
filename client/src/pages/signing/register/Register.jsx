@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/logo-white-background.png";
 import { useFormik } from "formik";
 import { GoEye, GoEyeClosed } from "react-icons/go";
@@ -8,10 +8,10 @@ import { HiOutlineMail } from "react-icons/hi";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { authUser } from "../../../../utils/firebase.config";
 import { object, string, ref } from "yup";
-import axios from 'axios'
-import { server_url } from "../../../../utils/configurations"; 
-import toast from 'react-simple-toasts';
-import 'react-simple-toasts/dist/theme/success.css';
+import axios from "axios";
+import { server_url } from "../../../../utils/configurations";
+import toast from "react-simple-toasts";
+import "react-simple-toasts/dist/theme/success.css";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -37,21 +37,25 @@ const Register = () => {
     }
   };
 
-  const handleRegisterUser = async(data) => {
-    setLoading(true)
+  const handleRegisterUser = async (data) => {
+    setLoading(true);
     try {
-      const response = await axios.post(`${server_url}/user/register`, data)
+      const response = await axios.post(`${server_url}/user/register`, data);
       if (response.data.ok) {
-        setError(null)
-        toast(response.data.message, {theme:"success", duration:4000, position:"top-right"})
-        navigate("/")
+        setError(null);
+        toast(response.data.message, {
+          theme: "success",
+          duration: 4000,
+          position: "top-right",
+        });
+        navigate("/");
       }
     } catch (error) {
-      setError(error.response.data.message)
-    }finally{
-      setLoading(false)
+      setError(error.response.data.message);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   const handleSigningWithGoole = async () => {
     try {
@@ -84,7 +88,7 @@ const Register = () => {
     },
     validationSchema: validation,
     onSubmit: (data) => {
-      handleRegisterUser(data)
+      handleRegisterUser(data);
     },
   });
 
@@ -178,7 +182,9 @@ const Register = () => {
             )}
         </div>
         {error && <p className="error">{error}</p>}
-        <button type="submit" disabled={loading}>{loading ? "please wait..." : "register"}</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "please wait..." : "register"}
+        </button>
         <p className="form-small-text">
           Already have Mutmee account? <Link to={"/"}>Login</Link>
         </p>

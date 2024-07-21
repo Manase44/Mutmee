@@ -24,7 +24,7 @@ html,
 body {
   overflow-x: hidden;
   font-family: "Roboto", sans-serif;
-  scroll-behavior:smooth;
+  scroll-behavior: smooth;
   background-color: var(--light-background);
 }
 
@@ -57,9 +57,7 @@ button:hover {
   border: 1px solid var(--theme-color);
 }
 
-
 a {
   text-decoration: none;
   color: inherit;
 }
-

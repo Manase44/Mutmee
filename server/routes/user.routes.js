@@ -7,10 +7,10 @@ import userLogin from "../controllers/user/userLogin.controller.js";
 const route = Router();
 
 route
-.get("/", getAllusers)
-.get("/:id", getSpecificUser)
-.post("/register", registerUser)
-.post("/login", userLogin)
-.delete("/:id", deleteUser)
+  .get("/", getAllusers)
+  .get("/:id", getSpecificUser)
+  .post("/register", registerUser)
+  .post("/login", userLogin)
+  .delete("/:id", deleteUser);
 
 export default route;

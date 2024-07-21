@@ -1,12 +1,12 @@
-import './Profile.css';
+import "./Profile.css";
 // import profile from '../../assets/profile.jpg';
-import profile from '../../assets/post.jpg';
-import { Link } from 'react-router-dom';
+import profile from "../../assets/post.jpg";
+import { Link } from "react-router-dom";
 import { RxDotsHorizontal } from "react-icons/rx";
-import Footer from '../../components/footer/Footer';
+import Footer from "../../components/footer/Footer";
 
 const Profile = () => {
-  const posts = [1, 2, 3, 4, 5, 6, 7, 8]
+  const posts = [1, 2, 3, 4, 5, 6, 7, 8];
   return (
     <div className="profile-page-container">
       <div className="user-profile">
@@ -22,21 +22,34 @@ const Profile = () => {
               <span>student</span>
             </div>
             <div className="settings-cta">
-              <Link to={"/setting"}><RxDotsHorizontal /></Link>
+              <Link to={"/setting"}>
+                <RxDotsHorizontal />
+              </Link>
             </div>
           </div>
           <div className="user-post-following">
-            <p><span>0</span>post</p>
-            <p><span>0</span>followers</p>
-            <p><span>0</span>following</p>
+            <p>
+              <span>0</span>post
+            </p>
+            <p>
+              <span>0</span>followers
+            </p>
+            <p>
+              <span>0</span>following
+            </p>
           </div>
           <div className="user-extra-details">
             <h4>bio:</h4>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim, quis?</p>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim,
+              quis?
+            </p>
           </div>
           <div className="user-extra-details">
             <h4>website:</h4>
-            <Link to={"https://manase.com"} target='_blank'>https://manase.com</Link>
+            <Link to={"https://manase.com"} target="_blank">
+              https://manase.com
+            </Link>
           </div>
           <div className="user-profile-cta">
             <Link to={"/setting"}>edit profile</Link>
@@ -64,14 +77,14 @@ const Profile = () => {
           {posts.map((post, i) => (
             <div className="user-post-card">
               <img src={profile} alt="post media" />
-              <RxDotsHorizontal className='post-media-type'/>
+              <RxDotsHorizontal className="post-media-type" />
             </div>
           ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

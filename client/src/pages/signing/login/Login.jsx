@@ -9,15 +9,17 @@ import { useState } from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { authUser } from "../../../../utils/firebase.config";
 import axios from "axios";
-import { server_url } from "../../../../utils/configurations"; 
-import toast from 'react-simple-toasts';
-import 'react-simple-toasts/dist/theme/success.css';
+import { server_url } from "../../../../utils/configurations";
+import toast from "react-simple-toasts";
+import "react-simple-toasts/dist/theme/success.css";
 import authenticatedStore from "../../../store/authenticated.store";
 
 const googleProvider = new GoogleAuthProvider();
 
 const Login = () => {
-  const setIsAuthenticated = authenticatedStore((state) => state.setIsAuthenticated)
+  const setIsAuthenticated = authenticatedStore(
+    (state) => state.setIsAuthenticated,
+  );
   const [showPassword, setShowpassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -31,22 +33,26 @@ const Login = () => {
     }
   };
 
-  const handleUserLogin = async(data) => {
-    setLoading(true)
+  const handleUserLogin = async (data) => {
+    setLoading(true);
     try {
-      const response = await axios.post(`${server_url}/user/login`, data)
+      const response = await axios.post(`${server_url}/user/login`, data);
       if (response.data.ok) {
-        setIsAuthenticated(true)
-        setError(null)
-        toast(response.data.message, {theme:"success", duration:4000, position:"top-right"})
+        setIsAuthenticated(true);
+        setError(null);
+        toast(response.data.message, {
+          theme: "success",
+          duration: 4000,
+          position: "top-right",
+        });
         navigate("/");
       }
     } catch (error) {
-      setError(error.response.data.message)
-    }finally{
-      setLoading(false)
+      setError(error.response.data.message);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   const handleSigningWithGoole = async () => {
     try {
@@ -59,7 +65,10 @@ const Login = () => {
 
   const validation = object({
     userName: string().required("username is required"),
-    password: string().required("password is required").min(8, "must have atleast 8 characters").max(25, "must have at most 25 characters")
+    password: string()
+      .required("password is required")
+      .min(8, "must have atleast 8 characters")
+      .max(25, "must have at most 25 characters"),
   });
 
   const signingForm = useFormik({
@@ -125,7 +134,9 @@ const Login = () => {
             <Link>Forgot password?</Link>
           </p>
           {error && <p className="error">{error}</p>}
-          <button type="submit" disabled={loading}>{loading ? "please wait...":"login"}</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "please wait..." : "login"}
+          </button>
           <p className="form-small-text">
             Don't have Mutmee account? <Link to={"/register"}>Creat one</Link>
           </p>

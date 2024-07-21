@@ -1,53 +1,53 @@
 .main-container {
-    width: 100vw;
-    display: flex;
-  }
-  
+  width: 100vw;
+  display: flex;
+}
+
+.main-container aside {
+  border-right: 1px solid var(--light-border);
+  height: 100vh;
+  width: 14%;
+  position: fixed;
+}
+
+.main-container main {
+  width: 86%;
+  display: flex;
+  margin-left: 14%;
+}
+
+@media screen and (max-width: 1200px) {
   .main-container aside {
-    border-right: 1px solid var(--light-border);
-    height: 100vh;
-    width: 14%;
-    position: fixed;
+    width: 17%;
   }
-  
+
   .main-container main {
-    width: 86%;
-    display: flex;
-    margin-left: 14%;
+    width: 83%;
+    margin-left: 17%;
   }
-  
-  @media screen and (max-width: 1200px) {
-    .main-container aside {
-      width: 17%;
-    }
-  
-    .main-container main {
-      width: 83%;
-      margin-left: 17%;
-    }
+}
+
+@media screen and (max-width: 992px) {
+  .main-container aside {
+    width: 20%;
   }
-  
-  @media screen and (max-width: 992px) {
-    .main-container aside {
-      width: 20%;
-    }
-  
-    .main-container main {
-      width: 80%;
-      margin-left: 20%;
-    }
+
+  .main-container main {
+    width: 80%;
+    margin-left: 20%;
   }
-  
-  @media screen and (max-width: 768px) {
-    .main-container main {
-      margin-left: unset;
-      width: 100vw;
-    }
-  
-    .main-container aside {
-      background-color: var(--light-background);
-      bottom: 0;
-      width: 100vw;
-      height: unset;
-    }
+}
+
+@media screen and (max-width: 768px) {
+  .main-container main {
+    margin-left: unset;
+    width: 100vw;
   }
+
+  .main-container aside {
+    background-color: var(--light-background);
+    bottom: 0;
+    width: 100vw;
+    height: unset;
+  }
+}
