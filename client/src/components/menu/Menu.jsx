@@ -1,12 +1,22 @@
 import "./Menu.css";
 import { NavLink } from "react-router-dom";
-import { BiSolidUserDetail } from "react-icons/bi";
 import logo from "../../assets/logo.png";
 import profile from "../../assets/profile.jpg";
 import { MdHome, MdExplore, MdOutlineAddBox, MdMenu } from "react-icons/md";
 import { ImNewspaper } from "react-icons/im";
+import { useEffect, useState } from "react";
+import Modal from "../modal/Modal";
+import themeColorStore from "../../store/themeColor.store";
+import userDetailsStore from "../../store/currentUser.store";
 
 const Menu = () => {
+  const user = userDetailsStore((state) => state.user);
+  const [show, setShow] = useState(false);
+  const {theme, setTheme} = themeColorStore();
+  
+useEffect(() => {
+  document.documentElement.setAttribute("data-theme", theme)
+}, [theme])
   return (
     <div className="menu-container">
       <div className="menu-header">
@@ -44,7 +54,7 @@ const Menu = () => {
           <li>
             <NavLink to="/profile">
               <div className="menu-profile-container">
-                <img src={profile} alt="user profile" />
+                {user.imageUrl && <img src={user.imageUrl} alt="user profile" />}
               </div>
               <span>profile</span>
             </NavLink>
@@ -52,11 +62,16 @@ const Menu = () => {
         </ul>
       </nav>
       <div className="menu-more-cta">
-        <NavLink>
+        <NavLink onClick={setTheme}>
           <MdMenu />
           <span>more</span>
         </NavLink>
       </div>
+      <Modal
+      show={show}
+      close={() => {setShow(false)}}
+      className={"menu-more-modal"}
+      />
     </div>
   );
 };

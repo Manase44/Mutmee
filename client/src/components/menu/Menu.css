@@ -16,7 +16,7 @@
   text-align: center;
   font-family: var(--cursive);
   font-size: 35px;
-  /* color: #fff; */
+  color: var(--text-color);
 }
 .menu-items,
 .menu-more-cta {
@@ -31,7 +31,7 @@
   text-transform: capitalize;
   font-weight: 500;
   margin: 1rem 0;
-  /* color: #fff; */
+  color: var(--text-color);
 }
 .menu-items li a svg,
 .menu-more-cta a svg {
@@ -43,6 +43,7 @@
   width: var(--size);
   border-radius: 50%;
   overflow: hidden;
+  background-color: var(--light-border);
 }
 .menu-profile-container img {
   height: 100%;
@@ -59,6 +60,13 @@
   position: absolute;
   bottom: 0.5rem;
 }
+
+.menu-more-modal{
+  border:none;
+  bottom: 0;
+}
+
+
 @media screen and (max-width: 768px) {
   .menu-items {
     padding: 0.5rem 0;

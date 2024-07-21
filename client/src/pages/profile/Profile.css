@@ -19,6 +19,7 @@
   width: var(--size);
   border-radius: 50%;
   overflow: hidden;
+  background-color: var(--light-border);
 }
 .user-profile-image img {
   height: 100%;
@@ -105,6 +106,10 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 0.4rem;
 }
+.user-post-container-message{
+  margin-top: 1rem;
+  text-align: center;
+}
 .user-post-card {
   overflow: hidden;
   width: 100%;
@@ -113,6 +118,8 @@
   align-items: center;
   cursor: grab;
   position: relative;
+  background-color: 1px solid var(--light-border);
+
 }
 .user-post-card img {
   width: 100%;

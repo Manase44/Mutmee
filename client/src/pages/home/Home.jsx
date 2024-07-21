@@ -7,8 +7,10 @@ import { MdExplore, MdOutlineAddBox, MdMenu } from "react-icons/md";
 import Footer from "../../components/footer/Footer";
 import { useState } from "react";
 import { useFormik } from "formik";
+import userDetailsStore from "../../store/currentUser.store";
 
 const Home = () => {
+  const user = userDetailsStore((state) => state.user);
   const [commenting, setCommenting] = useState(false);
 
   const handleCommentingForm = useFormik({
@@ -20,6 +22,8 @@ const Home = () => {
       setCommenting(false);
     },
   });
+
+  
   const suggestions = [1, 2, 3, 4];
   const posters = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
@@ -99,11 +103,11 @@ const Home = () => {
         <div className="right-content-profile-container">
           <Link className="right-profile">
             <div className="right-profile-image">
-              <img src={profile} alt="user profile" />
+              {user.imageUrl && <img src={user.imageUrl} alt="user profile" />}
             </div>
             <div className="right-profile-description">
-              <p className="right-profile-username">fikopersempre</p>
-              <span>student</span>
+              <p className="right-profile-username">{user.userName}</p>
+              <span>{user.role}</span>
             </div>
           </Link>
           <div className="right-profile-action">
@@ -115,8 +119,8 @@ const Home = () => {
             <p>You may like this</p>
             <Link>view all</Link>
           </div>
-          {suggestions.map((profile) => (
-            <div className="right-content-profile-container">
+          {suggestions.map((profile, i) => (
+            <div key={i} className="right-content-profile-container">
               <Link className="right-profile">
                 <div className="right-profile-image">
                   <img src={post} alt="suggested profile" />

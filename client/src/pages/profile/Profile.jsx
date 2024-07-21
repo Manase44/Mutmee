@@ -1,25 +1,56 @@
 import "./Profile.css";
-// import profile from '../../assets/profile.jpg';
-import profile from "../../assets/post.jpg";
 import { Link } from "react-router-dom";
 import { RxDotsHorizontal } from "react-icons/rx";
 import Footer from "../../components/footer/Footer";
+import userDetailsStore from "../../store/currentUser.store";
+import axios from 'axios'
+import { server_url } from "../../../utils/configurations";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
-  const posts = [1, 2, 3, 4, 5, 6, 7, 8];
+  const user = userDetailsStore((state) => state.user);
+
+  const [fetching, setFetching] = useState(true);
+  const [error, setError] = useState(null);
+  const [userPosts, setUserPosts] = useState([])
+
+
+  const getUserPosts = async (userId) => {
+    setFetching(true)
+    try {
+      const response = await axios.get(`${server_url}/post/user/${userId}`)
+      console.log(response)
+
+      if (response.data.ok) {
+        setError(null);
+        setUserPosts(response.data.userPosts)
+      }
+    } catch (error) {
+      console.log(error)
+      setError(error.response.data.message)
+    } finally {
+      setFetching(false)
+    }
+  }
+
+  useEffect(() => {
+    getUserPosts(user.userId)
+  }, []);
+
+
   return (
     <div className="profile-page-container">
       <div className="user-profile">
         <div className="user-profile-image-section">
           <div className="user-profile-image">
-            <img src={profile} alt="user profile" />
+            {user.imageUrl && <img src={user.imageUrl} alt="user profile" />}
           </div>
         </div>
         <div className="user-profile-details">
           <div className="user-profile-header">
             <div className="user-identifier">
-              <h3>fikopersempre</h3>
-              <span>student</span>
+              <h3>{user.userName}</h3>
+              <span>{user.role}</span>
             </div>
             <div className="settings-cta">
               <Link to={"/setting"}>
@@ -38,19 +69,18 @@ const Profile = () => {
               <span>0</span>following
             </p>
           </div>
-          <div className="user-extra-details">
+          {user.bio && <div className="user-extra-details">
             <h4>bio:</h4>
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim,
-              quis?
+              {user.bio}
             </p>
-          </div>
-          <div className="user-extra-details">
+          </div>}
+          {user.website && <div className="user-extra-details">
             <h4>website:</h4>
-            <Link to={"https://manase.com"} target="_blank">
-              https://manase.com
+            <Link to={`${user.website}`} target="_blank">
+              {user.website}
             </Link>
-          </div>
+          </div>}
           <div className="user-profile-cta">
             <Link to={"/setting"}>edit profile</Link>
           </div>
@@ -73,14 +103,16 @@ const Profile = () => {
             </li>
           </ul>
         </div>
-        <div className="user-post-container">
-          {posts.map((post, i) => (
-            <div className="user-post-card">
-              <img src={profile} alt="post media" />
-              <RxDotsHorizontal className="post-media-type" />
-            </div>
-          ))}
-        </div>
+        {fetching ? <p className="user-post-container-message">Getting your posts...</p> :
+          error ? <p className="user-post-container-message">{error}</p> :
+            <div className="user-post-container">
+              {userPosts && userPosts.map((post, i) => (
+                <div className="user-post-card" key={i}>
+                  <img src={post.mediaUrl} alt="post media" />
+                  <RxDotsHorizontal className="post-media-type" />
+                </div>
+              ))}
+            </div>}
       </div>
       <Footer />
     </div>
