@@ -14,7 +14,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* color: #fff; */
 }
 .poster-details {
   display: flex;
@@ -86,8 +85,9 @@
   border: none;
   outline: none;
   border-bottom: 1px solid var(--light-border);
+  background-color: transparent;
+  color: var(--text-color);
 }
-.home-post-comment-container textarea
 
 
 

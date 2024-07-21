@@ -8,7 +8,7 @@
   border-right: 1px solid var(--light-border);
   padding: 0.5rem 1rem;
 
-  /* background-color: red; */
+  /* color: #fff;  */
 }
 .setting-menu h3 {
   text-align: center;
@@ -66,10 +66,12 @@
   padding: 0.5rem 0.8rem;
   border-radius: var(--radius);
   font-size: 17px;
+  /* color: #fff; */
 }
 .edit-website-container input {
   width: 100%;
   margin-top: 0.2rem;
+  /* color: #fff; */
 }
 .edit-website-container a,
 .edit-bio-container a {

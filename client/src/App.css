@@ -11,13 +11,17 @@
   --light-background: #ffffff;
   --light-border: #dbdbdb;
   --light-btn: #efefef;
-  /* --light-background: #000000;
-  --dark-background1: #162c46;
-  --light-border: #262626;
-  --light-btn: #363636; */
+  --text-color:#000000;
   --theme-color: #b2d27f;
   --cursive: "Dancing Script", cursive;
   --radius: 7px;
+}
+
+[data-theme = "dark"]{
+  --light-background: #000000;
+  --light-border: #262626;
+  --light-btn: #363636;
+  --text-color:#ffffff;
 }
 
 html,
@@ -26,6 +30,7 @@ body {
   font-family: "Roboto", sans-serif;
   scroll-behavior: smooth;
   background-color: var(--light-background);
+  color: var(--text-color);
 }
 
 .error {
