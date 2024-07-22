@@ -1,7 +1,9 @@
 import "./Profile.css";
 import { Link } from "react-router-dom";
-import { RxDotsHorizontal } from "react-icons/rx";
 import { AiOutlineSetting } from "react-icons/ai";
+import { BiSolidVideos } from "react-icons/bi";
+import { MdPermMedia } from "react-icons/md";
+
 import Footer from "../../components/footer/Footer";
 import userDetailsStore from "../../store/currentUser.store";
 import axios from 'axios'
@@ -13,14 +15,20 @@ const Profile = () => {
 
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(null);
-  const [userPosts, setUserPosts] = useState([])
+  const [userPosts, setUserPosts] = useState([]);
+
+  const [displayAll, setDisplayAll] = useState(true);
+  const [displayImages, setDisplayImages] = useState(false);
+  const [displayVideos, setDisplayVideos] = useState(false);
+  const [displayArticles, setDisplayArticles] = useState(false);
+
 
 
   const getUserPosts = async (userId) => {
     setFetching(true)
     try {
-      const response = await axios.get(`${server_url}/post/user/${userId}`, {withCredentials:true})
-      
+      const response = await axios.get(`${server_url}/post/user/${userId}`, { withCredentials: true })
+
       if (response.data.ok) {
         setError(null);
         setUserPosts(response.data.userPosts)
@@ -89,28 +97,65 @@ const Profile = () => {
         <div className="user-profile-posts-type">
           <ul>
             <li>
-              <Link>all</Link>
+              <Link
+              onClick={() => {
+                setDisplayAll(true);
+                setDisplayImages(false);
+                setDisplayVideos(false);
+                setDisplayArticles(false)
+              }}
+              className={displayAll && "user-post-display-active-link"}
+              >all</Link>
             </li>
             <li>
-              <Link>photos</Link>
+              <Link
+              onClick={() => {
+                setDisplayAll(false);
+                setDisplayImages(true);
+                setDisplayVideos(false);
+                setDisplayArticles(false)
+              }}
+              className={displayImages && "user-post-display-active-link"}
+              >photos</Link>
             </li>
             <li>
-              <Link>videos</Link>
+              <Link
+              onClick={() => {
+                setDisplayAll(false);
+                setDisplayImages(false);
+                setDisplayVideos(true);
+                setDisplayArticles(false)
+              }}
+              className={displayVideos && "user-post-display-active-link"}
+              >videos</Link>
             </li>
             <li>
-              <Link>articles</Link>
+              <Link
+              onClick={() => {
+                setDisplayAll(false);
+                setDisplayImages(false);
+                setDisplayVideos(false);
+                setDisplayArticles(true)
+              }}
+              className={displayArticles && "user-post-display-active-link"}
+              >articles</Link>
             </li>
           </ul>
         </div>
         {fetching ? <p className="user-post-container-message">Getting your posts...</p> :
           error ? <p className="user-post-container-message error">{error}</p> :
             <div className="user-post-container">
-              {userPosts && userPosts.map((post, i) => (
-                <div className="user-post-card" key={i}>
-                  <img src={post.mediaUrl} alt="post media" />
-                  <RxDotsHorizontal className="post-media-type" />
-                </div>
-              ))}
+              
+              {userPosts && userPosts.map((post, i) => {
+
+                const isVideo = /^video\//i.test(post.mediaType);
+                return (
+                  <div className="user-post-card" key={i}>
+                    <img src={post.mediaUrl} alt="post media" />
+                    {isVideo ? <BiSolidVideos className="post-media-type" /> : <MdPermMedia className="post-media-type" />}
+                  </div>
+                )
+              })}
             </div>}
       </div>
       <Footer />

@@ -93,7 +93,7 @@
   text-transform: capitalize;
   transition: all 0.3s;
 }
-.user-profile-posts-type ul li a:hover {
+.user-profile-posts-type ul li a:hover, .user-post-display-active-link {
   text-decoration: underline;
   color: var(--theme-color);
 }
