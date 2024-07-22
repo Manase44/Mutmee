@@ -7,8 +7,6 @@
   width: 25%;
   border-right: 1px solid var(--light-border);
   padding: 0.5rem 1rem;
-
-  /* color: #fff;  */
 }
 .setting-menu h3 {
   text-align: center;
@@ -33,7 +31,6 @@
 .selected-setting {
   width: 75%;
   padding: 0.5rem 5rem;
-  /* background-color: green; */
 }
 .selected-setting-container {
   width: 100%;
@@ -42,6 +39,18 @@
 }
 .selected-setting-container h4 {
   text-transform: capitalize;
+}
+.toggle-theme-container, .setting-logout-container {
+  display: grid;
+  gap: .3rem;
+}
+.toggle-theme-container a, .setting-logout-container a{
+  padding: .5rem 1rem;
+  border-radius: var(--radius);
+  background-color:var(--light-btn);
+  width: fit-content;
+  text-transform: capitalize;
+  font-size: 17px;
 }
 .edit-image-container {
   display: flex;
@@ -55,8 +64,7 @@
 .edit-image-container button {
   width: 30%;
 }
-.edit-bio-container p,
-.edit-website-container p {
+.setting-section-para {
   text-transform: capitalize;
   font-size: 14px;
 }
@@ -66,17 +74,18 @@
   padding: 0.5rem 0.8rem;
   border-radius: var(--radius);
   font-size: 17px;
-  /* color: #fff; */
 }
-.edit-website-container input {
+.edit-website-container input, .edit-role-container input {
   width: 100%;
   margin-top: 0.2rem;
-  /* color: #fff; */
 }
-.edit-website-container a,
-.edit-bio-container a {
+.setting-edit-button {
   background-color: var(--theme-color);
   color: var(--light-background);
   border-radius: var(--radius);
   padding: 0.2rem 0.5rem;
+}
+.setting-input-little-description{
+  margin-top: .2rem;
+  font-size: 13px;
 }

@@ -3,19 +3,21 @@ import "./Setting.css";
 import post from "../../assets/post.jpg";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
+import themeColorStore from "../../store/themeColor.store";
+import userDetailsStore from "../../store/currentUser.store";
+import authenticatedStore from "../../store/authenticated.store";
 
 const Setting = () => {
+  const { theme, setTheme } = themeColorStore();
+  const user = userDetailsStore((state) => state.user);
+  const setIsAuthenticated = authenticatedStore((state) => state.setIsAuthenticated)
   const [general, setGeneral] = useState(true);
   const [editProfile, setEditProfile] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [account, setAccount] = useState(false);
-  const [image, setImage] = useState(false);
   const [editWebsite, setEditWebsite] = useState(false);
   const [editBio, setEditBio] = useState(false);
-  const [role, setRole] = useState(false);
-  const [bio, setBio] = useState(false);
-  const [website, setWebsite] = useState(false);
-  const [phone, setPhone] = useState(false);
+  const [editRole, setEditRole] = useState(false);
 
   const userDetailsUpdateForm = useFormik({
     initialValues: {
@@ -85,68 +87,93 @@ const Setting = () => {
         {general ? (
           <div className="selected-setting-container">
             <h4>general settings</h4>
+
+            <div className="toggle-theme-container">
+              <p className="setting-section-para">change theme:</p>
+              <Link onClick={setTheme}>{theme === "dark" ? "change to light" : "change to dark"}</Link>
+            </div>
           </div>
         ) : editProfile ? (
           <div className="selected-setting-container">
             <h4>edit profile</h4>
 
+            <form onSubmit={userDetailsUpdateForm.handleSubmit} className="selected-setting-container">
             <div className="edit-image-container">
               <div className="right-profile">
                 <div className="right-profile-image">
-                  <img src={post} alt="suggested profile" />
+                  {user.imageUrl && <img src={user.imageUrl} alt="current user profile" />}
                 </div>
                 <div className="right-profile-description">
-                  <p className="right-profile-username">fikopersempre</p>
-                  <span>student</span>
+                  <p className="right-profile-username">{user.userName}</p>
+                  <span>{user.role}</span>
                 </div>
               </div>
-              <button>{image ? "change photo" : "add photo"}</button>
+              <button>{user.imageUrl ? "change photo" : "add photo"}</button>
             </div>
 
             <div className="edit-role-container">
-              <p>specify your role in the university for better experience</p>
+              <p className="setting-section-para">role:</p>
+              <div className="input-wrapper">
+                <input type="text" name="role" id="role" value={user.role ? user.role : "No role specified!"} disabled={!editRole} />
+                <div className="input-icon">
+                  <Link onClick={() => { setEditRole(true) }} className="setting-edit-button">{user.role ?"edit" : "add"}</Link>
+                </div>
+              </div>
+              <p className="setting-input-little-description">Specify your role in the university for better experience.</p>
             </div>
 
             <div className="edit-bio-container">
-              <p>bio:</p>
+              <p className="setting-section-para">bio:</p>
               <div className="input-wrapper">
                 <textarea
                   name="bio"
                   id="bio"
-                  value={!bio ? "No bio!" : bio}
+                  value={user.bio ? user.bio : "No bio!"}
                   rows={1}
                   disabled={!editBio}
                 ></textarea>
                 <div className="input-icon">
-                  <Link onClick={() => setEditBio(true)}>edit</Link>
+                  <Link onClick={() => setEditBio(true)} className="setting-edit-button">{user.bio ? "edit" : "add"}</Link>
                 </div>
               </div>
+              <p className="setting-input-little-description">Tell us a little about yourself.</p>
             </div>
 
             <div className="edit-website-container">
-              <p>website:</p>
+              <p className="setting-section-para">website:</p>
               <div className="input-wrapper">
                 <input
                   type="text"
                   name="websiteUrl"
                   id="websiteUrl"
                   disabled={!editWebsite}
-                  value={"https://manase.com"}
+                  value={user.website ? user.website : "No website url!"}
                 />
                 <div className="input-icon">
-                  <Link onClick={() => setEditWebsite(true)}>edit</Link>
+                  <Link onClick={() => setEditWebsite(true)} className="setting-edit-button">{user.website ?"edit" : "add"}</Link>
                 </div>
               </div>
+              <p className="setting-input-little-description">Portfolio / organization / personal website.</p>
             </div>
-
-            <button>update</button>
+            <button type="submit">update</button>
+            </form>
+            
+            
           </div>
-        ) : (
-          changePassword && (
-            <div className="selected-setting-container">
-              <h4>password reset</h4>
+        ) : account ? (
+          <div className="selected-setting-container">
+            <h4>account setting</h4>
+
+            <div className="setting-logout-container">
+            <p className="setting-section-para">logout:</p>
+            <Link onClick={() => {setIsAuthenticated(false)}}>logout</Link>
             </div>
-          )
+          </div>
+
+        ) : changePassword && (
+          <div className="selected-setting-container">
+            <h4>password reset</h4>
+          </div>
         )}
       </div>
     </div>
