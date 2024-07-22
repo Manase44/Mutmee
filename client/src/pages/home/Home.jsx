@@ -7,13 +7,28 @@ import { FaRegCommentDots } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 import { PiShareFatBold } from "react-icons/pi";
 import Footer from "../../components/footer/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import userDetailsStore from "../../store/currentUser.store";
+import axios from 'axios';
+import { server_url } from "../../../utils/configurations";
 
 const Home = () => {
   const user = userDetailsStore((state) => state.user);
   const [commenting, setCommenting] = useState(false);
+  const [allPosts, setAllPosts] = useState([]);
+
+  const fetchAllPosts = async() => {
+    try {
+      const response = await axios.get(`${server_url}/post`, {withCredentials:true})
+      console.log(response)
+      if (response.data.ok) {
+        setAllPosts(response.data.allPosts)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const handleCommentingForm = useFormik({
     initialValues: {
@@ -25,21 +40,23 @@ const Home = () => {
     },
   });
 
+  useEffect(() => {
+    fetchAllPosts();
+  }, [])
   
   const suggestions = [1, 2, 3, 4];
-  const posters = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
     <>
       <div className="viewing-section">
-        {posters.map((poster, i) => (
+        {allPosts.map((post, i) => (
           <div className="post-card" key={i}>
             <div className="post-header">
               <Link className="poster-details">
                 <div className="poster-profile">
-                  <img src={profile} alt="user profile" />
+                 {post.posterImageUrl && <img src={post.posterImageUrl} alt="user profile" />}
                 </div>
                 <div className="post-details">
-                  <h3 className="poster-username">fikopersempre</h3>
+                  <h3 className="poster-username">{post.posterUserName}</h3>
                   <p className="posted-time">30min</p>
                 </div>
               </Link>
@@ -50,14 +67,13 @@ const Home = () => {
             <div className="post-content">
               <picture>
                 <source />
-                <img src={post} alt="post" />
+                <img src={post.mediaUrl} alt="post" />
               </picture>
             </div>
             <div className="home-post-details">
               <div className="home-post-caption">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Consequuntur, quod!
+                  {post.caption}
                 </p>
               </div>
               <div className="home-post-footer">
@@ -80,7 +96,7 @@ const Home = () => {
                   </ul>
                 </div>
                 <div className="home-post-likes">
-                  <span>0</span>
+                  <span>{post.likes}</span>
                   <p>likes</p>
                 </div>
               </div>

@@ -58,6 +58,7 @@
   padding: 0.3rem 0;
 }
 .home-post-caption p {
+  padding:.3rem .8rem;
   font-size: 13px;
 }
 .home-post-footer {
