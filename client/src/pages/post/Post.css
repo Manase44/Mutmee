@@ -62,6 +62,12 @@
   font-size: 70px;
   fill: var(--light-btn);
 }
+.post-ok-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+}
 .media-input {
   margin: 0.5rem 0;
   width: 100%;

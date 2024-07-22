@@ -3,11 +3,12 @@ const prisma = new PrismaClient();
 
 const createPost = async (req, res) => {
   const user = req.user;
-  const { mediaUrl, caption, posterId } = req.body;
+  
+  const { mediaUrl, mediaType, caption} = req.body;
   try {
     const poster = await prisma.user.findUnique({
       where: {
-        id: user.userid,
+        id: user.userId,
       },
     });
     if (!poster) {
@@ -16,8 +17,9 @@ const createPost = async (req, res) => {
     const createdPost = await prisma.post.create({
       data: {
         mediaUrl,
+        mediaType,
         caption,
-        posterId : user.userid,
+        posterId : user.userId,
       },
     });
     if (createdPost) {

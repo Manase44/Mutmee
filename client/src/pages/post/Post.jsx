@@ -1,21 +1,26 @@
 import "./Post.css";
+import { Oval } from 'react-loader-spinner'
 import { useEffect, useState } from "react";
-import { cloud_name, upload_preset } from "../../../utils/configurations";
+import { cloud_name, server_url, upload_preset } from "../../../utils/configurations";
 import axios from "axios";
 import { FaPhotoVideo } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import toast from "react-simple-toasts";
+import "react-simple-toasts/dist/theme/success.css";
 
 const Post = () => {
   const [media, setMedia] = useState(true);
   const [article, setArticle] = useState(false);
   const [imageInput, setImageInput] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-  const [imageUrlGenerated, setImageUrlGenerated] = useState(false);
+  const [imageUrlGenerating, setImageUrlGenerating] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleUploadImage = async () => {
+    setImageUrlGenerating(true);
     const payload = new FormData();
     payload.append("file", imageInput);
     payload.append("upload_preset", upload_preset);
@@ -32,25 +37,46 @@ const Post = () => {
         setImageUrl(
           secureUrl.replace("/upload", "/upload/w_400/f_auto/q_auto"),
         );
-        setImageInput(null);
       }
     } catch (error) {
       setError("uploading failed!");
+    }finally{
+      setImageUrlGenerating(false)
     }
   };
 
+  const submitPost = async (data) => {
+    setLoading(true)
+    try {
+      const response = await axios.post(`${server_url}/post`, data, { withCredentials: true })
+      if (response.data.ok) {
+        toast(response.data.message, {
+          theme: "success",
+          duration: 4000,
+          position: "top-right",
+        });
+        navigate("/post");
+        setImageInput(null);
+        setImageUrl(null)
+      }
+    } catch (error) {
+      setError(error.response.data.message)
+    }finally{
+      setLoading(false)
+
+    }
+  }
+
   const handlePostForm = useFormik({
     initialValues: {
-      posterId: "",
-      imageUrl: "",
+      mediaUrl: "",
       mediaType: "",
       caption: "",
     },
     onSubmit: (data) => {
-      data.imageUrl = imageUrl;
+      data.mediaUrl = imageUrl;
       data.mediaType = imageInput.type;
-      // data.posterId = userId,
-      console.log(data);
+      submitPost(data)
     },
   });
 
@@ -91,18 +117,16 @@ const Post = () => {
         {media ? (
           <>
             <div className="media-preview">
-              {imageInput ? (
-                <div className="image-preview-text">
-                  <p>
-                    click <strong>ok</strong> to upload:
-                  </p>
-                  <p>{imageInput.name}</p>
-                </div>
-              ) : imageUrl ? (
-                <img src={imageUrl} alt="choosen media" />
-              ) : (
-                <FaPhotoVideo />
-              )}
+              {
+                imageUrl ? <img src={imageUrl} alt="choosen media" /> : imageInput ? (
+                  <div className="image-preview-text">
+                    <p>
+                      click <strong>ok</strong> to upload:
+                    </p>
+                    <p>{imageInput.name}</p>
+                  </div>
+                ) : <FaPhotoVideo />
+              }
             </div>
             {imageUrl ? (
               <div className="caption-container">
@@ -119,7 +143,20 @@ const Post = () => {
                       onChange={handlePostForm.handleChange}
                     ></textarea>
                   </div>
-                  <button type="submit">post</button>
+                  {error && <p className="error">{error}</p>}
+                  <button type="submit">{
+                    loading ? 
+                    <>
+                    <Oval
+                    visible={true}
+                    height="15"
+                    width="15"
+                    color="#4fa94d"
+                    ariaLabel="oval-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                  />  <span>posting...</span> </> : "post"
+                }</button>
                 </form>
               </div>
             ) : (
@@ -136,7 +173,16 @@ const Post = () => {
                     }}
                   />
                 </div>
-                <button onClick={handleUploadImage} disabled={imageUrl}>
+                <button disabled={imageUrlGenerating} onClick={handleUploadImage} className="post-ok-btn">
+                {imageUrlGenerating && <Oval
+                          visible={true}
+                          height="15"
+                          width="15"
+                          color="#4fa94d"
+                          ariaLabel="oval-loading"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                        />}
                   ok
                 </button>
                 {error && <p className="error">{error}</p>}
