@@ -1,6 +1,7 @@
 import "./Profile.css";
 import { Link } from "react-router-dom";
 import { RxDotsHorizontal } from "react-icons/rx";
+import { AiOutlineSetting } from "react-icons/ai";
 import Footer from "../../components/footer/Footer";
 import userDetailsStore from "../../store/currentUser.store";
 import axios from 'axios'
@@ -52,7 +53,7 @@ const Profile = () => {
             </div>
             <div className="settings-cta">
               <Link to={"/setting"}>
-                <RxDotsHorizontal />
+                <AiOutlineSetting />
               </Link>
             </div>
           </div>

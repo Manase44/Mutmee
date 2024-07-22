@@ -1,7 +1,7 @@
 import "./Menu.css";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { MdHome, MdExplore, MdOutlineAddBox, MdMenu } from "react-icons/md";
+import { MdOutlineHome, MdOutlineExplore, MdOutlineAddBox, MdMenu } from "react-icons/md";
 import { ImNewspaper } from "react-icons/im";
 import { useState } from "react";
 import Modal from "../modal/Modal";
@@ -24,13 +24,13 @@ const Menu = () => {
         <ul className="menu-items">
           <li className="item">
             <NavLink to="/">
-              <MdHome />
+              <MdOutlineHome />
               <span>home</span>
             </NavLink>
           </li>
           <li>
             <NavLink to="/explore">
-              <MdExplore />
+              <MdOutlineExplore />
               <span>explore</span>
             </NavLink>
           </li>

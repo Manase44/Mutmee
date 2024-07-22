@@ -3,7 +3,9 @@ import post from "../../assets/post.jpg";
 import profile from "../../assets/profile.jpg";
 import { Link } from "react-router-dom";
 import { RxDotsHorizontal } from "react-icons/rx";
-import { MdExplore, MdOutlineAddBox, MdMenu } from "react-icons/md";
+import { FaRegCommentDots } from "react-icons/fa6";
+import { FaRegHeart } from "react-icons/fa";
+import { PiShareFatBold } from "react-icons/pi";
 import Footer from "../../components/footer/Footer";
 import { useState } from "react";
 import { useFormik } from "formik";
@@ -62,7 +64,7 @@ const Home = () => {
                 <div className="home-post-cta">
                   <ul>
                     <li title="like">
-                      <MdExplore />
+                      <FaRegHeart />
                     </li>
                     <li
                       title="comment"
@@ -70,10 +72,10 @@ const Home = () => {
                         setCommenting(true);
                       }}
                     >
-                      <MdExplore />
+                      <FaRegCommentDots />
                     </li>
                     <li title="share">
-                      <MdExplore />
+                      <PiShareFatBold />
                     </li>
                   </ul>
                 </div>

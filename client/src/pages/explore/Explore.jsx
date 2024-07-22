@@ -2,7 +2,9 @@ import "./Explore.css";
 import post from "../../assets/post.jpg";
 import profile from "../../assets/profile.jpg";
 import { Link } from "react-router-dom";
-import { MdExplore, MdOutlineAddBox, MdMenu } from "react-icons/md";
+import { FaRegCommentDots } from "react-icons/fa6";
+import { FaRegHeart } from "react-icons/fa";
+import { PiShareFatBold } from "react-icons/pi";
 import Footer from "../../components/footer/Footer";
 
 const Explore = () => {
@@ -30,13 +32,13 @@ const Explore = () => {
             <div className="explore-post-cta">
               <ul>
                 <li>
-                  <MdExplore />
+                  <FaRegCommentDots />
                 </li>
                 <li>
-                  <MdMenu />
+                  <FaRegHeart />
                 </li>
                 <li>
-                  <MdOutlineAddBox />
+                  <PiShareFatBold />
                 </li>
               </ul>
             </div>

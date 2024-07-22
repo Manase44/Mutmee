@@ -53,11 +53,10 @@
   border-radius: var(--radius);
   border: 1px solid var(--light-border);
   outline-color: var(--theme-color);
-  /* text-transform: capitalize; */
+  background-color: transparent;
+  color: var(--text-color);
 }
-/* input[type="email"], input[type="password"]{
-    text-transform: none;
-  } */
+
 .input-icon {
   position: absolute;
   height: 100%;

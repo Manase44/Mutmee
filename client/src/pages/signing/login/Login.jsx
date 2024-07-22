@@ -13,6 +13,7 @@ import { server_url } from "../../../../utils/configurations";
 import toast from "react-simple-toasts";
 import "react-simple-toasts/dist/theme/success.css";
 import authenticatedStore from "../../../store/authenticated.store";
+import userDetailsStore from "../../../store/currentUser.store";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -20,6 +21,7 @@ const Login = () => {
   const setIsAuthenticated = authenticatedStore(
     (state) => state.setIsAuthenticated,
   );
+  const setUser = userDetailsStore((state) => state.setUser);
   const [showPassword, setShowpassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -36,8 +38,20 @@ const Login = () => {
   const handleUserLogin = async (data) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${server_url}/user/login`, data);
+      const response = await axios.post(`${server_url}/user/login`, data, {withCredentials: true});
       if (response.data.ok) {
+
+        const user = {
+          userId : response.data.user.userId,
+          userName:response.data.user.userName,
+          role:response.data.user.role,
+          imageUrl:response.data.user.imageUrl,
+          bio:response.data.user.bio,
+          website:response.data.user.website
+        }
+
+        setUser(user);
+
         setIsAuthenticated(true);
         setError(null);
         toast(response.data.message, {

@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import { MdHome, MdExplore, MdOutlineAddBox, MdMenu } from "react-icons/md";
+import { MdOutlineClose } from "react-icons/md";
+
 import './Modal.css'
 
 const Modal = ({ show, close, content }) => {
@@ -16,7 +17,7 @@ const Modal = ({ show, close, content }) => {
   return (
     <dialog ref={dialog}>
       <div className="dialog-body">
-        <div className="dialog-header"> <Link onClick={close}><MdHome/></Link></div>
+        <div className="dialog-header"> <Link onClick={close}><MdOutlineClose/></Link></div>
         <div className="dialog-content">
           {content}
         </div>

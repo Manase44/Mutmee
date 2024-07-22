@@ -35,7 +35,7 @@ const Post = () => {
         setImageInput(null);
       }
     } catch (error) {
-      setError("uploading failed");
+      setError("uploading failed!");
     }
   };
 
@@ -43,10 +43,12 @@ const Post = () => {
     initialValues: {
       posterId: "",
       imageUrl: "",
+      mediaType: "",
       caption: "",
     },
     onSubmit: (data) => {
       data.imageUrl = imageUrl;
+      data.mediaType = imageInput.type;
       // data.posterId = userId,
       console.log(data);
     },
@@ -64,6 +66,8 @@ const Post = () => {
                 onClick={() => {
                   setMedia(true);
                   setArticle(false);
+                  setError(null);
+                  setImageInput(null);
                 }}
               >
                 media
@@ -75,6 +79,8 @@ const Post = () => {
                 onClick={() => {
                   setMedia(false);
                   setArticle(true);
+                  setError(null);
+                  setImageInput(null);
                 }}
               >
                 article
@@ -133,6 +139,7 @@ const Post = () => {
                 <button onClick={handleUploadImage} disabled={imageUrl}>
                   ok
                 </button>
+                {error && <p className="error">{error}</p>}
               </div>
             )}
           </>
