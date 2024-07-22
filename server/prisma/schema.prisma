@@ -34,6 +34,7 @@ model Profile{
 model Post{
   postId String @id @default(uuid())
   mediaUrl String
+  mediaType String
   caption String?
   publishedAt DateTime @default(now())
   likes Int @default(0)
