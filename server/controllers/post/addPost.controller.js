@@ -2,11 +2,12 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const createPost = async (req, res) => {
+  const user = req.user;
   const { mediaUrl, caption, posterId } = req.body;
   try {
     const poster = await prisma.user.findUnique({
       where: {
-        id: posterId,
+        id: user.userid,
       },
     });
     if (!poster) {
@@ -16,7 +17,7 @@ const createPost = async (req, res) => {
       data: {
         mediaUrl,
         caption,
-        posterId,
+        posterId : user.userid,
       },
     });
     if (createdPost) {

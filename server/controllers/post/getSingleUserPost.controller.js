@@ -10,7 +10,7 @@ const getPostOfSpecificUser = async (req, res) => {
       },
     });
     if (!confirmUser) {
-      return res.status(400).json({ ok: false, message: "invalid user" });
+      return res.status(400).json({ ok: false, message: "Invalid user" });
     }
     const userPosts = await prisma.post.findMany({
       where: {
@@ -18,13 +18,13 @@ const getPostOfSpecificUser = async (req, res) => {
       },
     });
     if (userPosts.length < 1) {
-      return res.status(404).json({ ok: false, message: "no post yet" });
+      return res.status(404).json({ ok: false, message: "No post yet" });
     }
     if (userPosts.length > 0) {
       return res.status(200).json({ ok: true, userPosts });
     }
   } catch (error) {
-    return res.status(500).json({ ok: false, message: "something went wrong" });
+    return res.status(500).json({ ok: false, message: "Something went wrong" });
   }
 };
 

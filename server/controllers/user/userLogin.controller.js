@@ -1,12 +1,11 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { generateAccessToken, generateRefreshToken } from "../../utils/jwt.config.js";
 
 const prisma = new PrismaClient();
 
 const userLogin = async (req, res) => {
   const { userName, password } = req.body;
-  console.log(req.user);
 
   try {
     const confirmExistence = await prisma.user.findUnique({
@@ -45,22 +44,37 @@ const userLogin = async (req, res) => {
     }
     const payload = {
       userName: confirmExistence.userName,
-      userId: confirmExistence.id,
-      imageUrl,
+      userId: confirmExistence.id
     };
-    const token = jwt.sign(payload, process.env.SECRET_KEY, {
-      expiresIn: "1h",
-    });
+
+    const user = {
+      userName: confirmExistence.userName,
+      userId: confirmExistence.id,
+      imageUrl:userProfile? userProfile.imageUrl : null,
+      bio:userProfile ? userProfile.bio : null,
+      role:userProfile? userProfile.role : null,
+      website: userProfile ? userProfile.website : null
+    };
+
+    const accessToken = generateAccessToken(payload);
+    const refreshToken = generateRefreshToken(payload);
+
 
     res
-      .cookie("access_token", token, {
+      .cookie("access_token", accessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
+        maxAge: 600 * 1000
+      })
+      .cookie("refresh_token", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 8 * 3600 * 1000
       })
       .status(200)
-      .json({ ok: true, message: "login successfully" });
+      .json({ ok: true, message: "login successfully", user:user});
   } catch (error) {
-    return res.status(500).json({ ok: false, message: "something went wrong" });
+    return res.status(500).json({ ok: false, message: error.message});
   }
 };
 
