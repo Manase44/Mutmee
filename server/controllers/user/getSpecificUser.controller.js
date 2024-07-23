@@ -20,13 +20,13 @@ const getSpecificUser = async (req, res) => {
     if (specificUserById) {
       return res.status(200).json({
         ok: true,
-        specificUserById,
+        specificUser : specificUserById,
       });
     }
     if (specificUserByUsername) {
       return res.status(200).json({
         ok: true,
-        specificUserByUsername,
+        specificUser : specificUserByUsername,
       });
     }
     if (!specificUserByUsername || !specificUserByUsername) {

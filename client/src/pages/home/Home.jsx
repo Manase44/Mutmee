@@ -1,6 +1,5 @@
 import "./Home.css";
-import post from "../../assets/post.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RxDotsHorizontal } from "react-icons/rx";
 import { FaRegCommentDots } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
@@ -9,13 +8,26 @@ import Footer from "../../components/footer/Footer";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import userDetailsStore from "../../store/currentUser.store";
+import useRefferedUserStore from "../../store/refferedUserId.store";
 import axios from "axios";
 import { server_url } from "../../../utils/configurations";
 
 const Home = () => {
   const user = userDetailsStore((state) => state.user);
+  const setRefferedUser = useRefferedUserStore((state) => state.setRefferedUser);
   const [commentingPostId, setCommentingPostId] = useState(null);
   const [allPosts, setAllPosts] = useState([]);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const navigateToSpecifiedProfile = (username) => {
+    if (username === user.userName) {
+      navigate("/profile")
+    } else {
+      setRefferedUser(username)
+      navigate(`/user/${username}`)
+    }
+  }
 
   const fetchAllPosts = async () => {
     try {
@@ -24,13 +36,12 @@ const Home = () => {
       });
 
       if (response.data.ok) {
-        console.log(response.data.allPosts);
         const posts = response.data.allPosts;
         setAllPosts(posts.reverse());
         setCommentingPostId(null);
       }
     } catch (error) {
-      console.log(error);
+      setError(error.response.data.message)
     }
   };
 
@@ -53,10 +64,11 @@ const Home = () => {
   return (
     <>
       <div className="viewing-section">
+        {error && <p className="error">{error}</p>}
         {allPosts.map((post, i) => (
           <div className="post-card" key={i}>
             <div className="post-header">
-              <Link className="poster-details">
+              <Link className="poster-details" onClick={navigateToSpecifiedProfile(post.posterUserName)}>
                 <div className="poster-profile">
                   {post.posterImageUrl && (
                     <img src={post.posterImageUrl} alt="user profile" />
