@@ -11,6 +11,7 @@ import Profile from "./pages/profile/Profile";
 import MainPage from "./pages/main/MainPage";
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import Setting from "./pages/setting/Setting";
+import RefferedProfile from "./pages/profile/RefferedProfile";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/news" element={<News />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/setting" element={<Setting />} />
+            <Route path="/user/:id" element={<RefferedProfile />} />
           </Route>
           <Route path="*" element={<Notfound />} />
         </Routes>
