@@ -9,7 +9,7 @@ import userDetailsStore from "../../store/currentUser.store";
 import axios from 'axios'
 import { server_url } from "../../../utils/configurations";
 import { useEffect, useState } from "react";
-import PostViewModal from "../../components/postViewModal/PostViewModal";
+import PostViewModal from "./postViewModal/PostViewModal";
 
 const Profile = () => {
   const user = userDetailsStore((state) => state.user);
@@ -19,7 +19,8 @@ const Profile = () => {
   const [userPosts, setUserPosts] = useState([]);
   const [selectedPostMediaUrl, setSelectedPostMediaUrl] = useState(null);
   const [selectedPostCaption, setSelectedPostCaption] = useState(null);
-  const [selectedPostComments, setSelectedPostComments] = useState([])
+  const [selectedPostComments, setSelectedPostComments] = useState([]);
+  const [selectedPostId, setSelectedPostId] = useState(null);
 
   const [displayAll, setDisplayAll] = useState(true);
   const [displayImages, setDisplayImages] = useState(false);
@@ -40,8 +41,8 @@ const Profile = () => {
         const posts = response.data.userPosts;
         setUserPosts(posts.reverse());
         console.log(userPosts)
-        setSelectedPostMediaUrl(null);
-        setSelectedPostCaption(null)
+        // setSelectedPostMediaUrl(null);
+        // setSelectedPostCaption(null);
       }
     } catch (error) {
       setError(error.response.data.message)
@@ -109,6 +110,7 @@ const Profile = () => {
       <PostViewModal
       open={showPost}
       close={() => setShowPost(false)}
+      id={selectedPostId}
       medialink={selectedPostMediaUrl}
       caption={selectedPostCaption}
       comment={selectedPostComments}
@@ -173,7 +175,8 @@ const Profile = () => {
                   <div className="user-post-card" key={i} onClick={() => {
                     setSelectedPostMediaUrl(post.mediaUrl);
                     setSelectedPostCaption(post.caption);
-                    setSelectedPostComments(post.comments)
+                    setSelectedPostComments(post.comments);
+                    setSelectedPostId(post.postId)
                     setShowPost(true);
                     }}>
                     <img src={post.mediaUrl} alt="post media" />
