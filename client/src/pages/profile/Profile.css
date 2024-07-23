@@ -93,7 +93,8 @@
   text-transform: capitalize;
   transition: all 0.3s;
 }
-.user-profile-posts-type ul li a:hover, .user-post-display-active-link {
+.user-profile-posts-type ul li a:hover,
+.user-post-display-active-link {
   text-decoration: underline;
   color: var(--theme-color);
 }
@@ -106,7 +107,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 0.4rem;
 }
-.user-post-container-message{
+.user-post-container-message {
   margin-top: 1rem;
   text-align: center;
 }
@@ -119,7 +120,6 @@
   cursor: grab;
   position: relative;
   background-color: 1px solid var(--light-border);
-
 }
 .user-post-card img {
   width: 100%;

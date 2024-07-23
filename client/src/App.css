@@ -11,17 +11,17 @@
   --light-background: #ffffff;
   --light-border: #dbdbdb;
   --light-btn: #efefef;
-  --text-color:#000000;
+  --text-color: #000000;
   --theme-color: #b2d27f;
   --cursive: "Dancing Script", cursive;
   --radius: 7px;
 }
 
-[data-theme = "dark"]{
+[data-theme="dark"] {
   --light-background: #000000;
   --light-border: #262626;
   --light-btn: #363636;
-  --text-color:#ffffff;
+  --text-color: #ffffff;
 }
 
 html,

@@ -38,17 +38,18 @@ const Login = () => {
   const handleUserLogin = async (data) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${server_url}/user/login`, data, {withCredentials: true});
+      const response = await axios.post(`${server_url}/user/login`, data, {
+        withCredentials: true,
+      });
       if (response.data.ok) {
-
         const user = {
-          userId : response.data.user.userId,
-          userName:response.data.user.userName,
-          role:response.data.user.role,
-          imageUrl:response.data.user.imageUrl,
-          bio:response.data.user.bio,
-          website:response.data.user.website
-        }
+          userId: response.data.user.userId,
+          userName: response.data.user.userName,
+          role: response.data.user.role,
+          imageUrl: response.data.user.imageUrl,
+          bio: response.data.user.bio,
+          website: response.data.user.website,
+        };
 
         setUser(user);
 

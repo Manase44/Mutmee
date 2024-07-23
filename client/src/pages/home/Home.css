@@ -58,7 +58,7 @@
   padding: 0.3rem 0;
 }
 .home-post-caption p {
-  padding:.3rem .8rem;
+  padding: 0.3rem 0.8rem;
   font-size: 13px;
 }
 .home-post-footer {
@@ -89,9 +89,6 @@
   background-color: transparent;
   color: var(--text-color);
 }
-
-
-
 
 /* RIGHT SECTION */
 .right-content {
@@ -136,11 +133,11 @@
 .article-suggestions-header a {
   color: inherit;
 }
-.right-news-highlights h4{
+.right-news-highlights h4 {
   text-transform: uppercase;
   font-size: 13px;
 }
-.right-news-highlights p{
+.right-news-highlights p {
   font-style: italic;
   font-weight: 100;
   font-size: 14px;

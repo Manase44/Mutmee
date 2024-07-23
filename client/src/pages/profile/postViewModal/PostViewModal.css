@@ -1,148 +1,149 @@
-.post-view-container{
-    background-color: transparent;
-    color: var(--text-color);
-    z-index: 100;
+.post-view-container {
+  background-color: transparent;
+  color: var(--text-color);
+  z-index: 100;
 }
-.post-view-content{
-    margin-top: 10vh;
-    margin-left: 20vh;
-    width: 80vw;
-    height: 80vh;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    background-color: var(--light-background);
+.post-view-content {
+  margin-top: 10vh;
+  margin-left: 20vh;
+  width: 80vw;
+  height: 80vh;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background-color: var(--light-background);
 }
-.post-view-modal-media{
-    display: grid;
-    place-content: center;
-    border-right: 1px solid var(--light-border);
-    overflow: hidden;
+.post-view-modal-media {
+  display: grid;
+  place-content: center;
+  border-right: 1px solid var(--light-border);
+  overflow: hidden;
 }
-.post-view-modal-media img{
-    width: 100%;
-    object-fit: cover;
+.post-view-modal-media img {
+  width: 100%;
+  object-fit: cover;
 }
-.post-view-modal-comment-header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: .5rem 1rem;
-    border-bottom: 1px solid var(--light-border);
+.post-view-modal-comment-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--light-border);
 }
-.post-view-modal-comment-header p{
-    text-transform: capitalize;
-    font-weight: 500;
+.post-view-modal-comment-header p {
+  text-transform: capitalize;
+  font-weight: 500;
 }
-.post-view-modal-comment-header-cta{
-    display: flex;
-    gap: 1rem;
+.post-view-modal-comment-header-cta {
+  display: flex;
+  gap: 1rem;
 }
-.post-view-modal-comment-header-cta a svg:hover{
-    fill: var(--theme-color);
+.post-view-modal-comment-header-cta a svg:hover {
+  fill: var(--theme-color);
 }
-.post-view-modal-comment-comments-section{
-    padding: .5rem 1.5rem;
-    height: 55%;
-    border-bottom:1px solid var(--light-border);
+.post-view-modal-comment-comments-section {
+  padding: 0.5rem 1.5rem;
+  height: 55%;
+  border-bottom: 1px solid var(--light-border);
 }
-.post-view-modal-comment-each{
-    display: flex;
-    gap: 1rem;
+.post-view-modal-comment-each {
+  display: flex;
+  gap: 1rem;
 }
-.post-view-modal-comment-caption-section{
-    padding: .5rem 1rem;
-    display: flex;
-    justify-content: space-between;
+.post-view-modal-comment-caption-section {
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
 }
-.post-view-modal-comment-caption{
-    padding:.5rem 1rem;
-    font-size: 14px;
+.post-view-modal-comment-caption {
+  padding: 0.5rem 1rem;
+  font-size: 14px;
 }
-.post-view-model-commenting-form{
-    border-top: 1px solid var(--light-border);
-    display: flex;
-    width: 100%;
-    /* background-color: blueviolet; */
+.post-view-model-commenting-form {
+  border-top: 1px solid var(--light-border);
+  display: flex;
+  width: 100%;
+  /* background-color: blueviolet; */
 }
-.post-view-model-adding-comment-input{
-    width: 75%;
-    padding:0 1rem;
-    display: grid;
-    align-items: center;
-    /* background-color: red; */
+.post-view-model-adding-comment-input {
+  width: 75%;
+  padding: 0 1rem;
+  display: grid;
+  align-items: center;
+  /* background-color: red; */
 }
-.post-view-model-adding-comment-input input{
-    padding: .5rem .8rem;
-    color:var(--text-color);
-    background-color: transparent;
-    border: none;
-    outline: none;
-    font-size: 17px;
+.post-view-model-adding-comment-input input {
+  padding: 0.5rem 0.8rem;
+  color: var(--text-color);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: 17px;
 }
-.post-view-model-commenting-form button{
-    width: 20%;
+.post-view-model-commenting-form button {
+  width: 20%;
 }
 
-.post-menu{
-    background-color: transparent;
+.post-menu {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.post-menu ul {
+  /* padding: .8rem 1.2rem; */
+  background-color: var(--light-background);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: grid;
+  /* gap: .8rem; */
+}
+.post-menu-list-item,
+.post-menu-delete-action {
+  display: flex;
+  padding: 0.5rem 2rem;
+  border-top: 1px solid var(--light-border);
+  font-size: 17px;
+  text-transform: capitalize;
+  transition: all 0.2s;
+}
+.post-menu ul li:hover {
+  background-color: var(--light-btn);
+}
+.post-menu-delete-action {
+  color: red;
+  border-top: none;
+}
+.post-menu-delete-action {
+  gap: 1rem;
+  align-items: center;
+}
+@media screen and (max-width: 992px) {
+  .post-view-content {
+    margin-left: 10vh;
+  }
+  .post-view-model-adding-comment-input {
+    width: 60%;
+  }
+  .post-view-model-commenting-form button {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 900px) {
+  .post-view-content {
     display: flex;
-    justify-content: center;
-    align-items: center;
+  }
+  .post-view-modal-media,
+  .post-view-modal-comment {
+    width: 50%;
+  }
 }
-.post-menu ul{
-    /* padding: .8rem 1.2rem; */
-    background-color: var(--light-background);
-    border-radius: var(--radius);
-    overflow: hidden;
-    display: grid;
-    /* gap: .8rem; */
+@media screen and (max-width: 576px) {
+  .post-view-content {
+    margin-left: 5vh;
+  }
 }
-.post-menu-list-item, .post-menu-delete-action{
-    display: flex;
-    padding: .5rem 2rem;
-    border-top: 1px solid var(--light-border);
-    font-size: 17px;
-    text-transform: capitalize;
-    transition: all .2s;
-}
-.post-menu ul li:hover{
-    background-color: var(--light-btn);
-}
-.post-menu-delete-action{
-    color: red;
-    border-top: none;
-}
-.post-menu-delete-action{
-    gap: 1rem;
-    align-items: center;
-}
-@media screen and (max-width:992px) {
-    .post-view-content{
-        margin-left: 10vh;
-    }
-    .post-view-model-adding-comment-input{
-        width: 60%;
-    }
-    .post-view-model-commenting-form button{
-        width: 30%;
-    }
-}
-@media screen and (max-width:900px) {
-    .post-view-content{
-        display: flex;
-    }
-    .post-view-modal-media, .post-view-modal-comment{
-        width: 50%;
-    }
-      
-}
-@media screen and (max-width:576px) {
-    .post-view-content{
-        margin-left: 5vh;
-    }
-}
-@media screen and (max-width:350px) {
-    .post-view-content{
-        margin-left: 2vh;
-    }
+@media screen and (max-width: 350px) {
+  .post-view-content {
+    margin-left: 2vh;
+  }
 }

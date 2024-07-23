@@ -1,8 +1,8 @@
-import { useRef, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { MdOutlineClose } from "react-icons/md";
 
-import './Modal.css'
+import "./Modal.css";
 
 const Modal = ({ show, close, content }) => {
   const dialog = useRef();
@@ -13,17 +13,20 @@ const Modal = ({ show, close, content }) => {
     } else {
       dialog.current.close();
     }
-  }, [show])
+  }, [show]);
   return (
     <dialog ref={dialog}>
       <div className="dialog-body">
-        <div className="dialog-header"> <Link onClick={close}><MdOutlineClose/></Link></div>
-        <div className="dialog-content">
-          {content}
+        <div className="dialog-header">
+          {" "}
+          <Link onClick={close}>
+            <MdOutlineClose />
+          </Link>
         </div>
+        <div className="dialog-content">{content}</div>
       </div>
     </dialog>
-  )
-}
+  );
+};
 
 export default Modal;

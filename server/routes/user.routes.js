@@ -13,7 +13,7 @@ route
   .get("/:id", getSpecificUser)
   .post("/register", registerUser)
   .post("/login", userLogin)
-  .patch("/profile", verifyToken ,updatingUserProfile)
+  .patch("/profile", verifyToken, updatingUserProfile)
   .delete("/:id", deleteUser);
 
 export default route;

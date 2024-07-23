@@ -9,7 +9,7 @@ import Footer from "../../components/footer/Footer";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import userDetailsStore from "../../store/currentUser.store";
-import axios from 'axios';
+import axios from "axios";
 import { server_url } from "../../../utils/configurations";
 
 const Home = () => {
@@ -17,24 +17,26 @@ const Home = () => {
   const [commentingPostId, setCommentingPostId] = useState(null);
   const [allPosts, setAllPosts] = useState([]);
 
-  const fetchAllPosts = async() => {
+  const fetchAllPosts = async () => {
     try {
-      const response = await axios.get(`${server_url}/post`, {withCredentials:true})
-      
+      const response = await axios.get(`${server_url}/post`, {
+        withCredentials: true,
+      });
+
       if (response.data.ok) {
-        console.log(response.data.allPosts)
+        console.log(response.data.allPosts);
         const posts = response.data.allPosts;
         setAllPosts(posts.reverse());
-        setCommentingPostId(null)
+        setCommentingPostId(null);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const handleCommentingForm = useFormik({
     initialValues: {
-      postId:"",
+      postId: "",
       comment: "",
     },
     onSubmit: (data) => {
@@ -45,8 +47,8 @@ const Home = () => {
 
   useEffect(() => {
     fetchAllPosts();
-  }, [])
-  
+  }, []);
+
   const suggestions = [1, 2, 3, 4];
   return (
     <>
@@ -56,7 +58,9 @@ const Home = () => {
             <div className="post-header">
               <Link className="poster-details">
                 <div className="poster-profile">
-                 {post.posterImageUrl && <img src={post.posterImageUrl} alt="user profile" />}
+                  {post.posterImageUrl && (
+                    <img src={post.posterImageUrl} alt="user profile" />
+                  )}
                 </div>
                 <div className="post-details">
                   <h3 className="poster-username">{post.posterUserName}</h3>
@@ -75,9 +79,7 @@ const Home = () => {
             </div>
             <div className="home-post-details">
               <div className="home-post-caption">
-                <p>
-                  {post.caption}
-                </p>
+                <p>{post.caption}</p>
               </div>
               <div className="home-post-footer">
                 <div className="home-post-cta">

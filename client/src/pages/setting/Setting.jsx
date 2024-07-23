@@ -9,14 +9,14 @@ import UpdateProfile from "./UpdateProfile";
 
 const Setting = () => {
   const { theme, setTheme } = themeColorStore();
-  const setIsAuthenticated = authenticatedStore((state) => state.setIsAuthenticated)
+  const setIsAuthenticated = authenticatedStore(
+    (state) => state.setIsAuthenticated,
+  );
   const [general, setGeneral] = useState(true);
   const [editProfile, setEditProfile] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [account, setAccount] = useState(false);
-  
 
-  
   return (
     <div className="setting-page-container">
       <div className="setting-menu">
@@ -79,30 +79,38 @@ const Setting = () => {
 
             <div className="toggle-theme-container">
               <p className="setting-section-para">change theme:</p>
-              <Link onClick={setTheme}>{theme === "dark" ? "change to light" : "change to dark"}</Link>
+              <Link onClick={setTheme}>
+                {theme === "dark" ? "change to light" : "change to dark"}
+              </Link>
             </div>
           </div>
         ) : editProfile ? (
           <div className="selected-setting-container">
             <h4>edit profile</h4>
 
-            <UpdateProfile/>
-            
+            <UpdateProfile />
           </div>
         ) : account ? (
           <div className="selected-setting-container">
             <h4>account setting</h4>
 
             <div className="setting-logout-container">
-            <p className="setting-section-para">logout:</p>
-            <Link onClick={() => {setIsAuthenticated(false)}}>logout</Link>
+              <p className="setting-section-para">logout:</p>
+              <Link
+                onClick={() => {
+                  setIsAuthenticated(false);
+                }}
+              >
+                logout
+              </Link>
             </div>
           </div>
-
-        ) : changePassword && (
-          <div className="selected-setting-container">
-            <h4>password reset</h4>
-          </div>
+        ) : (
+          changePassword && (
+            <div className="selected-setting-container">
+              <h4>password reset</h4>
+            </div>
+          )
         )}
       </div>
     </div>

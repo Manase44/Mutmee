@@ -22,22 +22,22 @@ const getPostOfSpecificUser = async (req, res) => {
     }
 
     const posts = await Promise.all(
-      userPosts.map(async(post) => {
+      userPosts.map(async (post) => {
         const comments = await prisma.comment.findMany({
-          where:{
-            postId:post.postId,
-          }
-        })
+          where: {
+            postId: post.postId,
+          },
+        });
 
-        return{
+        return {
           postId: post.postId,
           mediaUrl: post.mediaUrl,
           caption: post.caption,
           likes: post.likes,
           comments,
-        }
-      })
-    )
+        };
+      }),
+    );
 
     if (userPosts.length > 0) {
       return res.status(200).json({ ok: true, userPosts: posts });

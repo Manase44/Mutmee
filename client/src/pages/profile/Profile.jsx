@@ -6,7 +6,7 @@ import { MdPermMedia } from "react-icons/md";
 
 import Footer from "../../components/footer/Footer";
 import userDetailsStore from "../../store/currentUser.store";
-import axios from 'axios'
+import axios from "axios";
 import { server_url } from "../../../utils/configurations";
 import { useEffect, useState } from "react";
 import PostViewModal from "./postViewModal/PostViewModal";
@@ -17,7 +17,7 @@ const Profile = () => {
   const user = userDetailsStore((state) => state.user);
   const showPost = useShowPost((state) => state.showPost);
   const setShowPost = useShowPost((state) => state.setShowPost);
-  const postDeleted = useDeletedAPostStore((state) => state.postDeleted)
+  const postDeleted = useDeletedAPostStore((state) => state.postDeleted);
 
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(null);
@@ -32,33 +32,33 @@ const Profile = () => {
   const [displayVideos, setDisplayVideos] = useState(false);
   const [displayArticles, setDisplayArticles] = useState(false);
 
-
-
   const getUserPosts = async (userId) => {
-    setFetching(true)
+    setFetching(true);
     try {
-      const response = await axios.get(`${server_url}/post/user/${userId}`, { withCredentials: true })
+      const response = await axios.get(`${server_url}/post/user/${userId}`, {
+        withCredentials: true,
+      });
 
       if (response.data.ok) {
         setError(null);
         const posts = response.data.userPosts;
         setUserPosts(posts.reverse());
-        console.log(userPosts)
+        console.log(userPosts);
       }
     } catch (error) {
-      setError(error.response.data.message)
+      setError(error.response.data.message);
     } finally {
-      setFetching(false)
+      setFetching(false);
     }
-  }
+  };
 
   useEffect(() => {
-    getUserPosts(user.userId)
+    getUserPosts(user.userId);
   }, []);
 
   useEffect(() => {
-    getUserPosts(user.userId)
-  }, [postDeleted])
+    getUserPosts(user.userId);
+  }, [postDeleted]);
 
   return (
     <div className="profile-page-container">
@@ -75,9 +75,7 @@ const Profile = () => {
               <span>{user.role}</span>
             </div>
             <div className="settings-cta">
-              <Link
-                to={"/setting"}
-              >
+              <Link to={"/setting"}>
                 <AiOutlineSetting />
               </Link>
             </div>
@@ -93,30 +91,32 @@ const Profile = () => {
               <span>0</span>following
             </p>
           </div>
-          {user.bio && <div className="user-extra-details">
-            <h4>bio:</h4>
-            <p>
-              {user.bio}
-            </p>
-          </div>}
-          {user.website && <div className="user-extra-details">
-            <h4>website:</h4>
-            <Link to={`${user.website}`} target="_blank">
-              {user.website}
-            </Link>
-          </div>}
+          {user.bio && (
+            <div className="user-extra-details">
+              <h4>bio:</h4>
+              <p>{user.bio}</p>
+            </div>
+          )}
+          {user.website && (
+            <div className="user-extra-details">
+              <h4>website:</h4>
+              <Link to={`${user.website}`} target="_blank">
+                {user.website}
+              </Link>
+            </div>
+          )}
           <div className="user-profile-cta">
             <Link to={"/setting"}>edit profile</Link>
           </div>
         </div>
       </div>
       <PostViewModal
-      open={showPost}
-      close={() => setShowPost(false)}
-      id={selectedPostId}
-      medialink={selectedPostMediaUrl}
-      caption={selectedPostCaption}
-      comment={selectedPostComments}
+        open={showPost}
+        close={() => setShowPost(false)}
+        id={selectedPostId}
+        medialink={selectedPostMediaUrl}
+        caption={selectedPostCaption}
+        comment={selectedPostComments}
       />
       <div className="user-profile-posts">
         <div className="user-profile-posts-type">
@@ -127,10 +127,12 @@ const Profile = () => {
                   setDisplayAll(true);
                   setDisplayImages(false);
                   setDisplayVideos(false);
-                  setDisplayArticles(false)
+                  setDisplayArticles(false);
                 }}
                 className={displayAll && "user-post-display-active-link"}
-              >all</Link>
+              >
+                all
+              </Link>
             </li>
             <li>
               <Link
@@ -138,10 +140,12 @@ const Profile = () => {
                   setDisplayAll(false);
                   setDisplayImages(true);
                   setDisplayVideos(false);
-                  setDisplayArticles(false)
+                  setDisplayArticles(false);
                 }}
                 className={displayImages && "user-post-display-active-link"}
-              >photos</Link>
+              >
+                photos
+              </Link>
             </li>
             <li>
               <Link
@@ -149,10 +153,12 @@ const Profile = () => {
                   setDisplayAll(false);
                   setDisplayImages(false);
                   setDisplayVideos(true);
-                  setDisplayArticles(false)
+                  setDisplayArticles(false);
                 }}
                 className={displayVideos && "user-post-display-active-link"}
-              >videos</Link>
+              >
+                videos
+              </Link>
             </li>
             <li>
               <Link
@@ -160,34 +166,47 @@ const Profile = () => {
                   setDisplayAll(false);
                   setDisplayImages(false);
                   setDisplayVideos(false);
-                  setDisplayArticles(true)
+                  setDisplayArticles(true);
                 }}
                 className={displayArticles && "user-post-display-active-link"}
-              >articles</Link>
+              >
+                articles
+              </Link>
             </li>
           </ul>
         </div>
-        {fetching ? <p className="user-post-container-message">Getting your posts...</p> :
-          error ? <p className="user-post-container-message error">{error}</p> :
-            <div className="user-post-container">
-
-              {userPosts && userPosts.map((post, i) => {
-
+        {fetching ? (
+          <p className="user-post-container-message">Getting your posts...</p>
+        ) : error ? (
+          <p className="user-post-container-message error">{error}</p>
+        ) : (
+          <div className="user-post-container">
+            {userPosts &&
+              userPosts.map((post, i) => {
                 const isVideo = /^video\//i.test(post.mediaType);
                 return (
-                  <div className="user-post-card" key={i} onClick={() => {
-                    setSelectedPostMediaUrl(post.mediaUrl);
-                    setSelectedPostCaption(post.caption);
-                    setSelectedPostComments(post.comments);
-                    setSelectedPostId(post.postId)
-                    setShowPost(true);
-                    }}>
+                  <div
+                    className="user-post-card"
+                    key={i}
+                    onClick={() => {
+                      setSelectedPostMediaUrl(post.mediaUrl);
+                      setSelectedPostCaption(post.caption);
+                      setSelectedPostComments(post.comments);
+                      setSelectedPostId(post.postId);
+                      setShowPost(true);
+                    }}
+                  >
                     <img src={post.mediaUrl} alt="post media" />
-                    {isVideo ? <BiSolidVideos className="post-media-type" /> : <MdPermMedia className="post-media-type" />}
+                    {isVideo ? (
+                      <BiSolidVideos className="post-media-type" />
+                    ) : (
+                      <MdPermMedia className="post-media-type" />
+                    )}
                   </div>
-                )
+                );
               })}
-            </div>}
+          </div>
+        )}
       </div>
       <Footer />
     </div>

@@ -8,32 +8,51 @@ import { useEffect } from "react";
 import authenticatedStore from "../../store/authenticated.store";
 
 const MoreMenu = () => {
-    const setIsAuthenticated = authenticatedStore((state) => state.setIsAuthenticated)
-    const { theme, setTheme } = themeColorStore();
+  const setIsAuthenticated = authenticatedStore(
+    (state) => state.setIsAuthenticated,
+  );
+  const { theme, setTheme } = themeColorStore();
 
-    const handleUserLogout = () => {
-        setIsAuthenticated(false)
-    }
+  const handleUserLogout = () => {
+    setIsAuthenticated(false);
+  };
 
-    useEffect(() => {
-        document.documentElement.setAttribute("data-theme", theme)
-    }, [theme])
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
-    return (
-        <div className="more-menu-content">
-            <ul>
-                <li>
-                    <Link to={"/setting"}><AiOutlineSetting/> settings</Link>
-                </li>
-                <li>
-                    <Link onClick={setTheme}>{theme === "dark" ? <span> <MdSunny/> light mode</span> : <span><IoMoonSharp/> dark mode</span>}</Link>
-                </li>
-                <li>
-                    <Link onClick={handleUserLogout}><span><BiLogOutCircle/> logout</span></Link>
-                </li>
-            </ul>
-        </div>
-    )
-}
+  return (
+    <div className="more-menu-content">
+      <ul>
+        <li>
+          <Link to={"/setting"}>
+            <AiOutlineSetting /> settings
+          </Link>
+        </li>
+        <li>
+          <Link onClick={setTheme}>
+            {theme === "dark" ? (
+              <span>
+                {" "}
+                <MdSunny /> light mode
+              </span>
+            ) : (
+              <span>
+                <IoMoonSharp /> dark mode
+              </span>
+            )}
+          </Link>
+        </li>
+        <li>
+          <Link onClick={handleUserLogout}>
+            <span>
+              <BiLogOutCircle /> logout
+            </span>
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
+};
 
-export default MoreMenu
+export default MoreMenu;

@@ -1,7 +1,12 @@
 import "./Menu.css";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { MdOutlineHome, MdOutlineExplore, MdOutlineAddBox, MdMenu } from "react-icons/md";
+import {
+  MdOutlineHome,
+  MdOutlineExplore,
+  MdOutlineAddBox,
+  MdMenu,
+} from "react-icons/md";
 import { ImNewspaper } from "react-icons/im";
 import { useState } from "react";
 import Modal from "../modal/Modal";
@@ -11,7 +16,7 @@ import MoreMenu from "./MoreMenu";
 const Menu = () => {
   const user = userDetailsStore((state) => state.user);
   const [show, setShow] = useState(false);
-  
+
   return (
     <div className="menu-container">
       <div className="menu-header">
@@ -49,7 +54,9 @@ const Menu = () => {
           <li>
             <NavLink to="/profile">
               <div className="menu-profile-container">
-                {user.imageUrl && <img src={user.imageUrl} alt="user profile" />}
+                {user.imageUrl && (
+                  <img src={user.imageUrl} alt="user profile" />
+                )}
               </div>
               <span>profile</span>
             </NavLink>
@@ -64,8 +71,10 @@ const Menu = () => {
       </div>
       <Modal
         show={show}
-        close={() => { setShow(false) }}
-        content={<MoreMenu/>}
+        close={() => {
+          setShow(false);
+        }}
+        content={<MoreMenu />}
       />
     </div>
   );

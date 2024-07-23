@@ -60,14 +60,13 @@
   position: absolute;
   bottom: 0.5rem;
 }
-.more-menu-content ul{
+.more-menu-content ul {
   display: grid;
   gap: 1rem;
 }
-.more-menu-content ul li a{
+.more-menu-content ul li a {
   text-transform: capitalize;
 }
-
 
 @media screen and (max-width: 768px) {
   .menu-items {

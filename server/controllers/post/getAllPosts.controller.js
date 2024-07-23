@@ -13,22 +13,22 @@ const getAllPosts = async (req, res) => {
         const poster = await prisma.user.findUnique({
           where: {
             id: post.posterId,
-          }
-        })
+          },
+        });
         const profile = await prisma.profile.findUnique({
           where: {
             userId: poster.id,
-          }
-        })
+          },
+        });
 
         const postComments = await prisma.comment.findMany({
           where: {
-            postId: post.postId
-          }
-        })
+            postId: post.postId,
+          },
+        });
 
         const posterUserName = poster.userName;
-        const posterImageUrl = profile ? profile.imageUrl : null
+        const posterImageUrl = profile ? profile.imageUrl : null;
 
         return {
           postId: post.postId,
@@ -39,10 +39,8 @@ const getAllPosts = async (req, res) => {
           posterImageUrl,
           posterUserName,
         };
-      })
-    )
-
-
+      }),
+    );
 
     return res.status(200).json({ ok: true, allPosts: posts });
   } catch (error) {
