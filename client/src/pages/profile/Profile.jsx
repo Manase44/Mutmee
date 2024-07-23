@@ -10,9 +10,14 @@ import axios from 'axios'
 import { server_url } from "../../../utils/configurations";
 import { useEffect, useState } from "react";
 import PostViewModal from "./postViewModal/PostViewModal";
+import useShowPost from "../../store/showPost.store";
+import useDeletedAPostStore from "../../store/deletedAPost.store";
 
 const Profile = () => {
   const user = userDetailsStore((state) => state.user);
+  const showPost = useShowPost((state) => state.showPost);
+  const setShowPost = useShowPost((state) => state.setShowPost);
+  const postDeleted = useDeletedAPostStore((state) => state.postDeleted)
 
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(null);
@@ -27,8 +32,6 @@ const Profile = () => {
   const [displayVideos, setDisplayVideos] = useState(false);
   const [displayArticles, setDisplayArticles] = useState(false);
 
-  const [showPost, setShowPost] = useState(false);
-
 
 
   const getUserPosts = async (userId) => {
@@ -41,8 +44,6 @@ const Profile = () => {
         const posts = response.data.userPosts;
         setUserPosts(posts.reverse());
         console.log(userPosts)
-        // setSelectedPostMediaUrl(null);
-        // setSelectedPostCaption(null);
       }
     } catch (error) {
       setError(error.response.data.message)
@@ -55,6 +56,9 @@ const Profile = () => {
     getUserPosts(user.userId)
   }, []);
 
+  useEffect(() => {
+    getUserPosts(user.userId)
+  }, [postDeleted])
 
   return (
     <div className="profile-page-container">
@@ -73,7 +77,6 @@ const Profile = () => {
             <div className="settings-cta">
               <Link
                 to={"/setting"}
-                // onClick={() => setShowPost(true)}
               >
                 <AiOutlineSetting />
               </Link>

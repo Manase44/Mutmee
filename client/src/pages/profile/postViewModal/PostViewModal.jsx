@@ -8,16 +8,17 @@ import { FaRegCommentDots } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 import { PiShareFatBold } from "react-icons/pi";
 import { useFormik } from 'formik';
-import axios from 'axios'
-import { server_url } from '../../../../utils/configurations';
 import PostMenuModal from './PostMenuModal';
 import useDeletingPost from '../../../store/deletingPost.store';
+import useShoPostMenu from '../../../store/showPostMenu.store';
 
 
 const PostViewModal = ({ open, close, id, medialink, caption, comment }) => {
     const setDeletingPost = useDeletingPost((state) => state.setIsDeleting);
+    const showPostMenu = useShoPostMenu((state) => state.showPostMenu)
+    const setShowPostMenu = useShoPostMenu((state) => state.setShowPostMenu);
     const dialog = useRef();
-    const [showPostMenu, setShowPostMenu] = useState(false)
+    const [] = useState(false)
 
     useEffect(() => {
         if (open) {
