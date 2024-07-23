@@ -9,6 +9,7 @@ import userDetailsStore from "../../store/currentUser.store";
 import axios from 'axios'
 import { server_url } from "../../../utils/configurations";
 import { useEffect, useState } from "react";
+import PostViewModal from "../../components/postViewModal/PostViewModal";
 
 const Profile = () => {
   const user = userDetailsStore((state) => state.user);
@@ -22,6 +23,8 @@ const Profile = () => {
   const [displayVideos, setDisplayVideos] = useState(false);
   const [displayArticles, setDisplayArticles] = useState(false);
 
+  const [showPost, setShowPost] = useState(false)
+
 
 
   const getUserPosts = async (userId) => {
@@ -31,7 +34,8 @@ const Profile = () => {
 
       if (response.data.ok) {
         setError(null);
-        setUserPosts(response.data.userPosts)
+        const posts = response.data.userPosts;
+        setUserPosts(posts.reverse());
       }
     } catch (error) {
       setError(error.response.data.message)
@@ -60,7 +64,10 @@ const Profile = () => {
               <span>{user.role}</span>
             </div>
             <div className="settings-cta">
-              <Link to={"/setting"}>
+              <Link
+                // to={"/setting"}
+                onClick={() => setShowPost(true)}
+              >
                 <AiOutlineSetting />
               </Link>
             </div>
@@ -93,51 +100,55 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <PostViewModal
+      open={showPost}
+      close={() => setShowPost(false)}
+      />
       <div className="user-profile-posts">
         <div className="user-profile-posts-type">
           <ul>
             <li>
               <Link
-              onClick={() => {
-                setDisplayAll(true);
-                setDisplayImages(false);
-                setDisplayVideos(false);
-                setDisplayArticles(false)
-              }}
-              className={displayAll && "user-post-display-active-link"}
+                onClick={() => {
+                  setDisplayAll(true);
+                  setDisplayImages(false);
+                  setDisplayVideos(false);
+                  setDisplayArticles(false)
+                }}
+                className={displayAll && "user-post-display-active-link"}
               >all</Link>
             </li>
             <li>
               <Link
-              onClick={() => {
-                setDisplayAll(false);
-                setDisplayImages(true);
-                setDisplayVideos(false);
-                setDisplayArticles(false)
-              }}
-              className={displayImages && "user-post-display-active-link"}
+                onClick={() => {
+                  setDisplayAll(false);
+                  setDisplayImages(true);
+                  setDisplayVideos(false);
+                  setDisplayArticles(false)
+                }}
+                className={displayImages && "user-post-display-active-link"}
               >photos</Link>
             </li>
             <li>
               <Link
-              onClick={() => {
-                setDisplayAll(false);
-                setDisplayImages(false);
-                setDisplayVideos(true);
-                setDisplayArticles(false)
-              }}
-              className={displayVideos && "user-post-display-active-link"}
+                onClick={() => {
+                  setDisplayAll(false);
+                  setDisplayImages(false);
+                  setDisplayVideos(true);
+                  setDisplayArticles(false)
+                }}
+                className={displayVideos && "user-post-display-active-link"}
               >videos</Link>
             </li>
             <li>
               <Link
-              onClick={() => {
-                setDisplayAll(false);
-                setDisplayImages(false);
-                setDisplayVideos(false);
-                setDisplayArticles(true)
-              }}
-              className={displayArticles && "user-post-display-active-link"}
+                onClick={() => {
+                  setDisplayAll(false);
+                  setDisplayImages(false);
+                  setDisplayVideos(false);
+                  setDisplayArticles(true)
+                }}
+                className={displayArticles && "user-post-display-active-link"}
               >articles</Link>
             </li>
           </ul>
@@ -145,7 +156,7 @@ const Profile = () => {
         {fetching ? <p className="user-post-container-message">Getting your posts...</p> :
           error ? <p className="user-post-container-message error">{error}</p> :
             <div className="user-post-container">
-              
+
               {userPosts && userPosts.map((post, i) => {
 
                 const isVideo = /^video\//i.test(post.mediaType);
