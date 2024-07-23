@@ -49,6 +49,7 @@ const UpdateProfile = () => {
                 <div className="input-wrapper">
                     <select name="role" id="role" disabled={!editRole} onChange={userDetailsUpdateForm.handleChange} value={userDetailsUpdateForm.values.role}>
                         {!user.role && !editRole && <option value="student">No role!</option>}
+                        <option value="">select a role</option>
                         <option value="student">student</option>
                         <option value="lecturer">lecturer</option>
                         <option value="lecturer">staff</option>

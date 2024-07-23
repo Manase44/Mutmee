@@ -17,13 +17,16 @@ const Profile = () => {
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
+  const [selectedPostMediaUrl, setSelectedPostMediaUrl] = useState(null);
+  const [selectedPostCaption, setSelectedPostCaption] = useState(null);
+  const [selectedPostComments, setSelectedPostComments] = useState([])
 
   const [displayAll, setDisplayAll] = useState(true);
   const [displayImages, setDisplayImages] = useState(false);
   const [displayVideos, setDisplayVideos] = useState(false);
   const [displayArticles, setDisplayArticles] = useState(false);
 
-  const [showPost, setShowPost] = useState(false)
+  const [showPost, setShowPost] = useState(false);
 
 
 
@@ -36,6 +39,9 @@ const Profile = () => {
         setError(null);
         const posts = response.data.userPosts;
         setUserPosts(posts.reverse());
+        console.log(userPosts)
+        setSelectedPostMediaUrl(null);
+        setSelectedPostCaption(null)
       }
     } catch (error) {
       setError(error.response.data.message)
@@ -65,8 +71,8 @@ const Profile = () => {
             </div>
             <div className="settings-cta">
               <Link
-                // to={"/setting"}
-                onClick={() => setShowPost(true)}
+                to={"/setting"}
+                // onClick={() => setShowPost(true)}
               >
                 <AiOutlineSetting />
               </Link>
@@ -103,6 +109,9 @@ const Profile = () => {
       <PostViewModal
       open={showPost}
       close={() => setShowPost(false)}
+      medialink={selectedPostMediaUrl}
+      caption={selectedPostCaption}
+      comment={selectedPostComments}
       />
       <div className="user-profile-posts">
         <div className="user-profile-posts-type">
@@ -161,7 +170,12 @@ const Profile = () => {
 
                 const isVideo = /^video\//i.test(post.mediaType);
                 return (
-                  <div className="user-post-card" key={i}>
+                  <div className="user-post-card" key={i} onClick={() => {
+                    setSelectedPostMediaUrl(post.mediaUrl);
+                    setSelectedPostCaption(post.caption);
+                    setSelectedPostComments(post.comments)
+                    setShowPost(true);
+                    }}>
                     <img src={post.mediaUrl} alt="post media" />
                     {isVideo ? <BiSolidVideos className="post-media-type" /> : <MdPermMedia className="post-media-type" />}
                   </div>

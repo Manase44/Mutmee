@@ -15,15 +15,18 @@ import { server_url } from "../../../utils/configurations";
 
 const Home = () => {
   const user = userDetailsStore((state) => state.user);
-  const [commenting, setCommenting] = useState(false);
+  const [commentingPostId, setCommentingPostId] = useState(null);
   const [allPosts, setAllPosts] = useState([]);
 
   const fetchAllPosts = async() => {
     try {
       const response = await axios.get(`${server_url}/post`, {withCredentials:true})
-      console.log(response)
+      
       if (response.data.ok) {
-        setAllPosts(response.data.allPosts)
+        console.log(response.data.allPosts)
+        const posts = response.data.allPosts;
+        setAllPosts(posts.reverse());
+        setCommentingPostId(null)
       }
     } catch (error) {
       console.log(error)
@@ -32,11 +35,12 @@ const Home = () => {
 
   const handleCommentingForm = useFormik({
     initialValues: {
+      postId:"",
       comment: "",
     },
     onSubmit: (data) => {
+      data.postId = commentingPostId;
       console.log(data);
-      setCommenting(false);
     },
   });
 
@@ -85,7 +89,7 @@ const Home = () => {
                     <li
                       title="comment"
                       onClick={() => {
-                        setCommenting(true);
+                        setCommentingPostId(post.postId);
                       }}
                     >
                       <FaRegCommentDots />
@@ -100,14 +104,15 @@ const Home = () => {
                   <p>likes</p>
                 </div>
               </div>
-              {commenting && (
+              {commentingPostId === post.postId && (
                 <div className="home-post-comment-container">
                   <form onSubmit={handleCommentingForm.handleSubmit}>
                     <textarea
-                      name="postComment"
-                      id="postComment"
+                      name="comment"
                       placeholder="type your comment here"
                       rows={1}
+                      value={handleCommentingForm.values.comment}
+                      onChange={handleCommentingForm.handleChange}
                     ></textarea>
                     <button type="submit">comment</button>
                   </form>

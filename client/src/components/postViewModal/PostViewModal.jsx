@@ -9,7 +9,7 @@ import { PiShareFatBold } from "react-icons/pi";
 import { useFormik } from 'formik';
 
 
-const PostViewModal = ({ open, close }) => {
+const PostViewModal = ({ open, close, id, medialink, caption, comment }) => {
     const dialog = useRef();
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const PostViewModal = ({ open, close }) => {
         <dialog ref={dialog} className='post-view-container'>
             <div className="post-view-content">
                 <div className="post-view-modal-media">
-                    <img src={post} alt="post media" />
+                    <img src={medialink} alt="post media" />
                 </div>
                 <div className="post-view-modal-comment">
                     <div className="post-view-modal-comment-header">
@@ -41,8 +41,8 @@ const PostViewModal = ({ open, close }) => {
                         <Link onClick={close}><MdOutlineClose /></Link>
                     </div>
                     <div className="post-view-modal-comment-comments-section">
-                        {/* <p>No comments yet!</p> */}
-                        <div className="post-view-modal-comment-each">
+                        {comment.length < 1 ? <p>No comments yet!</p> :
+                         <div className="post-view-modal-comment-each">
                             <Link className="right-profile">
                                 <div className="right-profile-image">
                                     <img src={post} alt="suggested profile" />
@@ -53,7 +53,7 @@ const PostViewModal = ({ open, close }) => {
                                 </div>
                             </Link>
                             <p>This is great broo!</p>
-                        </div>
+                        </div>}
                     </div>
                     <div className="post-view-modal-comment-caption-section">
                         <div className="home-post-cta">
@@ -76,7 +76,7 @@ const PostViewModal = ({ open, close }) => {
                             <p>likes</p>
                         </div>
                     </div>
-                    <p className='post-view-modal-comment-caption'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus sunt impedit animi officiis minus labore error culpa non. Eum, dolorum.</p>
+                    <p className='post-view-modal-comment-caption'>{caption}</p>
                     <form className='post-view-model-commenting-form' onSubmit={postViewForm.handleSubmit}>
                         <div className="post-view-model-adding-comment-input">
                             <input type="text" name="comment" id="comment" placeholder='add comment...' onChange={postViewForm.handleChange} value={postViewForm.values.comment}/>

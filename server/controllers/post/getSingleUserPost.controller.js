@@ -20,8 +20,27 @@ const getPostOfSpecificUser = async (req, res) => {
     if (userPosts.length < 1) {
       return res.status(404).json({ ok: false, message: "No post yet" });
     }
+
+    const posts = await Promise.all(
+      userPosts.map(async(post) => {
+        const comments = await prisma.comment.findMany({
+          where:{
+            postId:post.postId,
+          }
+        })
+
+        return{
+          postId: post.postId,
+          mediaUrl: post.mediaUrl,
+          caption: post.caption,
+          likes: post.likes,
+          comments,
+        }
+      })
+    )
+
     if (userPosts.length > 0) {
-      return res.status(200).json({ ok: true, userPosts });
+      return res.status(200).json({ ok: true, userPosts: posts });
     }
   } catch (error) {
     return res.status(500).json({ ok: false, message: "Something went wrong" });
