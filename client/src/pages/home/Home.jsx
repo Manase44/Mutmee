@@ -1,6 +1,5 @@
 import "./Home.css";
 import post from "../../assets/post.jpg";
-import profile from "../../assets/profile.jpg";
 import { Link } from "react-router-dom";
 import { RxDotsHorizontal } from "react-icons/rx";
 import { FaRegCommentDots } from "react-icons/fa6";
@@ -137,24 +136,19 @@ const Home = () => {
             <Link>switch</Link>
           </div>
         </div>
-        <div className="right-content-follow-suggestions">
-          <div className="follow-suggestions-header">
-            <p>You may like this</p>
-            <Link>view all</Link>
+        <div>
+          <div className="article-suggestions-header">
+            <p>See available articles</p>
+            <Link to={"/news"}>view all</Link>
           </div>
           {suggestions.map((profile, i) => (
             <div key={i} className="right-content-profile-container">
-              <Link className="right-profile">
-                <div className="right-profile-image">
-                  <img src={post} alt="suggested profile" />
-                </div>
-                <div className="right-profile-description">
-                  <p className="right-profile-username">fikopersempre</p>
-                  <span>student</span>
-                </div>
+              <Link className="right-news-highlights">
+                <h4>see how theft has thrived in kiharu</h4>
+                <p>By fikopersempre</p>
               </Link>
               <div className="right-profile-action">
-                <Link>follow</Link>
+                <Link>read</Link>
               </div>
             </div>
           ))}

@@ -121,22 +121,29 @@
   color: var(--theme-color);
 }
 .right-profile-action a,
-.follow-suggestions-header a {
+.article-suggestions-header a {
   font-size: 13px;
   font-weight: 600;
   color: var(--theme-color);
 }
-.follow-suggestions-header {
+.article-suggestions-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
+  border-bottom: 1px solid var(--light-border);
 }
-.follow-suggestions-header p {
-  font-weight: 500;
-}
-.follow-suggestions-header a {
+.article-suggestions-header a {
   color: inherit;
+}
+.right-news-highlights h4{
+  text-transform: uppercase;
+  font-size: 13px;
+}
+.right-news-highlights p{
+  font-style: italic;
+  font-weight: 100;
+  font-size: 14px;
 }
 @media screen and (max-width: 992px) {
   .viewing-section {
