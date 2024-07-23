@@ -108,6 +108,10 @@
 .edit-role-container select{
   width: 80%;
 }
+.edit-role-container select option{
+  background-color: transparent;
+  color: var(--text-color);
+}
 .setting-edit-button {
   background-color: var(--light-btn);
   color: var(--light-background);
@@ -119,4 +123,11 @@
 .setting-input-little-description{
   margin-top: .2rem;
   font-size: 13px;
+}
+.updating-button{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
 }
