@@ -18,6 +18,7 @@ model User{
   posts Post[]
   comments Comment[]
   articles Article[]
+  liked Like[]
 }
 
 model Profile{
@@ -37,14 +38,26 @@ model Post{
   mediaType String
   caption String?
   publishedAt DateTime @default(now())
-  likes Int @default(0)
+ 
 
   posterId String
   poster User @relation(fields: [posterId], references: [id], onDelete: Cascade)
 
   comments Comment[]
+  likes Like[]
 }
+ 
+model Like{
+  likeId String @id @default(uuid())
 
+  postLiked String
+  post Post @relation(fields: [postLiked], references: [postId], onDelete: Cascade)
+
+  userLiked String
+  user User @relation(fields: [userLiked], references: [id], onDelete: Cascade)
+
+  @@unique([postLiked, userLiked])
+}
 model Comment{
   commentId String @id @default(uuid())
   text String
