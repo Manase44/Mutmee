@@ -29,11 +29,17 @@ const getPostOfSpecificUser = async (req, res) => {
           },
         });
 
+        const postLikes = await prisma.like.findMany({
+          where:{
+            postLiked:post.postId,
+          }
+        })
+
         return {
           postId: post.postId,
           mediaUrl: post.mediaUrl,
           caption: post.caption,
-          likes: post.likes,
+          likes: postLikes.length,
           comments,
         };
       }),

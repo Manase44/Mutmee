@@ -39,13 +39,11 @@ const updatingUserProfile = async (req, res) => {
     };
 
     if (newProfile) {
-      return res
-        .status(200)
-        .json({
-          ok: true,
-          userProfile,
-          message: "Profile updated successfully",
-        });
+      return res.status(200).json({
+        ok: true,
+        userProfile,
+        message: "Profile updated successfully",
+      });
     }
   } catch (error) {
     return res.status(500).json({ ok: false, message: "Something went wrong" });

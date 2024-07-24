@@ -26,6 +26,11 @@ const getAllPosts = async (req, res) => {
             postId: post.postId,
           },
         });
+        const postLikes = await prisma.like.findMany({
+          where:{
+            postLiked:post.postId
+          }
+        })
 
         const posterUserName = poster.userName;
         const posterImageUrl = profile ? profile.imageUrl : null;
@@ -34,7 +39,7 @@ const getAllPosts = async (req, res) => {
           postId: post.postId,
           mediaUrl: post.mediaUrl,
           caption: post.caption,
-          likes: post.likes,
+          likes: postLikes.length,
           comments: postComments,
           posterImageUrl,
           posterUserName,

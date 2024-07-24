@@ -5,6 +5,9 @@ const addComment = async (req, res) => {
   const user = req.user;
   const { comment, postId } = req.body;
   try {
+    if (!user) {
+      return res.status(401).json({ ok: false, message: "Access denied" })
+    }
     const commentor = await prisma.user.findUnique({
       where: {
         id: user.userId,
