@@ -25,7 +25,8 @@ const Home = () => {
   const navigate = useNavigate();
 
   const navigateToSpecifiedProfile = (username) => {
-    if (username == user.userName) {
+    console.log("twende", username);
+    if (username === user.userName) {
       navigate("/profile");
     } else {
       setRefferedUser(username);

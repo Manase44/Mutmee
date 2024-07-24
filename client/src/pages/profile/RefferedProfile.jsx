@@ -17,7 +17,7 @@ const RefferedProfile = () => {
 
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(null);
-  const [user, setuser] = useState(null);
+  const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [selectedPostMediaUrl, setSelectedPostMediaUrl] = useState(null);
   const [selectedPostCaption, setSelectedPostCaption] = useState(null);
@@ -31,13 +31,15 @@ const RefferedProfile = () => {
 
   const [refferedUserId, setRefferedUserId] = useState(null);
 
+  console.log(refferedUser);
+
   const getRefferedUser = async () => {
     try {
       const response = await axios.get(`${server_url}/user/${refferedUser}`);
       if (response.data.ok) {
         setError(null);
         setRefferedUserId(response.data.specificUser.id);
-        setuser(response.data.specificUser);
+        setUser(response.data.specificUser);
       }
     } catch (error) {
       setError(error.response.data.message);
@@ -65,17 +67,20 @@ const RefferedProfile = () => {
 
   useEffect(() => {
     getRefferedUser();
-    if (!error) {
+  }, [refferedUser]);
+
+  useEffect(() => {
+    if (refferedUserId) {
       getUserPosts(refferedUserId);
     }
-  }, []);
-
+  }, [refferedUserId]);
+  console.log(user);
   return (
     <div className="profile-page-container">
-      {/* <div className="user-profile">
+      <div className="user-profile">
         <div className="user-profile-image-section">
           <div className="user-profile-image">
-            {user.imageUrl && <img src={user.imageUrl} alt="user profile" />}
+            {user?.imageUrl && <img src={user.imageUrl} alt="user profile" />}
           </div>
         </div>
         <div className="user-profile-details">
@@ -87,22 +92,22 @@ const RefferedProfile = () => {
           </div>
           <div className="user-post-following">
             <p>
-              <span>0</span>post
+              <span>0</span> post
             </p>
             <p>
-              <span>0</span>followers
+              <span>0</span> followers
             </p>
             <p>
-              <span>0</span>following
+              <span>0</span> following
             </p>
           </div>
-          {user.bio && (
+          {user?.bio && (
             <div className="user-extra-details">
               <h4>bio:</h4>
               <p>{user.bio}</p>
             </div>
           )}
-          {user.website && (
+          {user?.website && (
             <div className="user-extra-details">
               <h4>website:</h4>
               <Link to={`${user.website}`} target="_blank">
@@ -131,7 +136,7 @@ const RefferedProfile = () => {
                   setDisplayVideos(false);
                   setDisplayArticles(false);
                 }}
-                className={displayAll && "user-post-display-active-link"}
+                className={displayAll ? "user-post-display-active-link" : ""}
               >
                 all
               </Link>
@@ -144,7 +149,7 @@ const RefferedProfile = () => {
                   setDisplayVideos(false);
                   setDisplayArticles(false);
                 }}
-                className={displayImages && "user-post-display-active-link"}
+                className={displayImages ? "user-post-display-active-link" : ""}
               >
                 photos
               </Link>
@@ -157,7 +162,7 @@ const RefferedProfile = () => {
                   setDisplayVideos(true);
                   setDisplayArticles(false);
                 }}
-                className={displayVideos && "user-post-display-active-link"}
+                className={displayVideos ? "user-post-display-active-link" : ""}
               >
                 videos
               </Link>
@@ -170,7 +175,9 @@ const RefferedProfile = () => {
                   setDisplayVideos(false);
                   setDisplayArticles(true);
                 }}
-                className={displayArticles && "user-post-display-active-link"}
+                className={
+                  displayArticles ? "user-post-display-active-link" : ""
+                }
               >
                 articles
               </Link>
@@ -209,7 +216,7 @@ const RefferedProfile = () => {
               })}
           </div>
         )}
-      </div> */}
+      </div>
       <Footer />
     </div>
   );
