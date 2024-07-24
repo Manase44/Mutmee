@@ -7,7 +7,7 @@ const createPost = async (req, res) => {
   const { mediaUrl, mediaType, caption } = req.body;
   try {
     if (!user) {
-      return res.status(401).json({ ok: false, message: "Access denied" })
+      return res.status(401).json({ ok: false, message: "Access denied" });
     }
     const poster = await prisma.user.findUnique({
       where: {

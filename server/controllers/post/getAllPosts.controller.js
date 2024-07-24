@@ -27,10 +27,10 @@ const getAllPosts = async (req, res) => {
           },
         });
         const postLikes = await prisma.like.findMany({
-          where:{
-            postLiked:post.postId
-          }
-        })
+          where: {
+            postLiked: post.postId,
+          },
+        });
 
         const posterUserName = poster.userName;
         const posterImageUrl = profile ? profile.imageUrl : null;

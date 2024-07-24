@@ -30,10 +30,10 @@ const getPostOfSpecificUser = async (req, res) => {
         });
 
         const postLikes = await prisma.like.findMany({
-          where:{
-            postLiked:post.postId,
-          }
-        })
+          where: {
+            postLiked: post.postId,
+          },
+        });
 
         return {
           postId: post.postId,

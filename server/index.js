@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.routes.js";
 import postRoutes from "./routes/post.routes.js";
+import articleRoutes from "./routes/article.routes.js";
 import verifyToken from "./middlewares/auth.js";
 
 config();
@@ -24,7 +25,7 @@ app.use(express.json());
 
 app.use("/user", userRoutes);
 app.use("/post", verifyToken, postRoutes);
-
+app.use("/article", verifyToken, articleRoutes);
 app.listen(port, () => {
   console.log(`server running successfully at port ${port}`);
 });
