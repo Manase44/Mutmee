@@ -1,6 +1,4 @@
 import "./Explore.css";
-import post from "../../assets/post.jpg";
-import profile from "../../assets/profile.jpg";
 import { Link } from "react-router-dom";
 import { FaRegCommentDots } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";

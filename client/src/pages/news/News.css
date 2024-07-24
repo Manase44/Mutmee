@@ -106,7 +106,7 @@ caption {
 .news-reading-display-header svg {
   font-size: 30px;
   margin: unset;
-  fill: var(--tex-color);
+  fill: var(--text-color);
 }
 .news-reading-display-header svg:hover {
   cursor: pointer;
