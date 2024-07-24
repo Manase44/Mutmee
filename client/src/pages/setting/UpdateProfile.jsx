@@ -89,15 +89,14 @@ const UpdateProfile = () => {
       website: user.website,
       role: user.role,
     },
-    onSubmit: (data) => {
-      uploadImage();
-      data.imageUrl = imageLink;
-      console.log(imageLink);
-      console.log(data);
-      console.log(error);
-      if (!error) {
-        postUserUpdateDetails(data);
+    onSubmit: async (data) => {
+      if (imageInput) {
+        await uploadImage();
       }
+      if (imageLink) {
+        data.imageUrl = imageLink;
+      }
+      postUserUpdateDetails(data);
     },
   });
   return (
@@ -223,7 +222,20 @@ const UpdateProfile = () => {
         </p>
       </div>
       <button type="submit">
-        {loading ? (
+        {generatingImageUrl ? (
+          <span className="updating-button">
+            <Oval
+              visible={true}
+              height="20"
+              width="20"
+              color="#4fa94d"
+              ariaLabel="oval-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+            uploading...
+          </span>
+        ) : loading ? (
           <span className="updating-button">
             <Oval
               visible={true}
