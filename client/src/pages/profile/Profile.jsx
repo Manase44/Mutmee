@@ -43,7 +43,6 @@ const Profile = () => {
         setError(null);
         const posts = response.data.userPosts;
         setUserPosts(posts.reverse());
-        console.log(userPosts);
       }
     } catch (error) {
       setError(error.response.data.message);
@@ -59,7 +58,6 @@ const Profile = () => {
   useEffect(() => {
     getUserPosts(user.userId);
   }, [postDeleted]);
-
   return (
     <div className="profile-page-container">
       <div className="user-profile">
@@ -116,7 +114,7 @@ const Profile = () => {
         id={selectedPostId}
         medialink={selectedPostMediaUrl}
         caption={selectedPostCaption}
-        comment={selectedPostComments}
+        comments={selectedPostComments}
       />
       <div className="user-profile-posts">
         <div className="user-profile-posts-type">

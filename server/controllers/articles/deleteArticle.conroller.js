@@ -24,13 +24,11 @@ const deletingArticle = async (req, res) => {
     const updatedAticleList = await prisma.article.findMany();
 
     if (deletedArticle) {
-      return res
-        .status(200)
-        .json({
-          ok: true,
-          message: "Article deleted successfully",
-          articles: updatedAticleList,
-        });
+      return res.status(200).json({
+        ok: true,
+        message: "Article deleted successfully",
+        articles: updatedAticleList,
+      });
     }
   } catch (error) {
     return res.status(500).json({

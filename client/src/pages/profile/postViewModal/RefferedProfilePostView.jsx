@@ -8,7 +8,13 @@ import { FaRegHeart } from "react-icons/fa";
 import { PiShareFatBold } from "react-icons/pi";
 import { useFormik } from "formik";
 
-const RefferedProfilePostView = ({ open, close, medialink, caption, comment }) => {
+const RefferedProfilePostView = ({
+  open,
+  close,
+  medialink,
+  caption,
+  comment,
+}) => {
   const dialog = useRef();
 
   useEffect(() => {

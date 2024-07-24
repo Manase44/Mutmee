@@ -14,20 +14,24 @@ import { server_url } from "../../../utils/configurations";
 
 const Home = () => {
   const user = userDetailsStore((state) => state.user);
-  const setRefferedUser = useRefferedUserStore((state) => state.setRefferedUser);
+  const setRefferedUser = useRefferedUserStore(
+    (state) => state.setRefferedUser,
+  );
   const [commentingPostId, setCommentingPostId] = useState(null);
+  const [likedPostId, setLikedPostId] = useState(null);
+  const [likedPosts, setLikedPosts] = useState(new Set());
   const [allPosts, setAllPosts] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const navigateToSpecifiedProfile = (username) => {
-    if (username === user.userName) {
-      navigate("/profile")
+    if (username == user.userName) {
+      navigate("/profile");
     } else {
-      setRefferedUser(username)
-      navigate(`/user/${username}`)
+      setRefferedUser(username);
+      navigate(`/user/${username}`);
     }
-  }
+  };
 
   const fetchAllPosts = async () => {
     try {
@@ -41,7 +45,7 @@ const Home = () => {
         setCommentingPostId(null);
       }
     } catch (error) {
-      setError(error.response.data.message)
+      setError(error.response.data.message);
     }
   };
 
@@ -56,9 +60,37 @@ const Home = () => {
     },
   });
 
+  const submitPostLike = async (id) => {
+    try {
+      if (!id) {
+        return navigate("/");
+      }
+      const response = await axios.post(
+        `${server_url}/post/like/${id}`,
+        {},
+        { withCredentials: true },
+      );
+
+      if (response.data.ok) {
+        setLikedPosts((prev) => new Set(prev.add(id)));
+        setAllPosts((prev) =>
+          prev.map((post) =>
+            post.postId === id ? { ...post, likes: response.data.likes } : post,
+          ),
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchAllPosts();
   }, []);
+
+  useEffect(() => {
+    submitPostLike(likedPostId);
+  }, [likedPostId]);
 
   const suggestions = [1, 2, 3, 4];
   return (
@@ -68,7 +100,12 @@ const Home = () => {
         {allPosts.map((post, i) => (
           <div className="post-card" key={i}>
             <div className="post-header">
-              <Link className="poster-details" onClick={navigateToSpecifiedProfile(post.posterUserName)}>
+              <div
+                className="poster-details"
+                onClick={() => {
+                  navigateToSpecifiedProfile(post.posterUserName);
+                }}
+              >
                 <div className="poster-profile">
                   {post.posterImageUrl && (
                     <img src={post.posterImageUrl} alt="user profile" />
@@ -78,7 +115,7 @@ const Home = () => {
                   <h3 className="poster-username">{post.posterUserName}</h3>
                   <p className="posted-time">30min</p>
                 </div>
-              </Link>
+              </div>
               <div className="post-action">
                 <RxDotsHorizontal />
               </div>
@@ -96,7 +133,10 @@ const Home = () => {
               <div className="home-post-footer">
                 <div className="home-post-cta">
                   <ul>
-                    <li title="like">
+                    <li
+                      title="like"
+                      onClick={() => setLikedPostId(post.postId)}
+                    >
                       <FaRegHeart />
                     </li>
                     <li
@@ -137,7 +177,7 @@ const Home = () => {
       </div>
       <div className="right-content">
         <div className="right-content-profile-container">
-          <Link className="right-profile">
+          <Link className="right-profile" to={"/profile"}>
             <div className="right-profile-image">
               {user.imageUrl && <img src={user.imageUrl} alt="user profile" />}
             </div>

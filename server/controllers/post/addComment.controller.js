@@ -46,7 +46,7 @@ const addComment = async (req, res) => {
         .json({ ok: true, message: "Comment posted", comments: postComments });
     }
   } catch (error) {
-    return res.status(500).json({ ok: false, message: "Something went wrong" });
+    return res.status(500).json({ ok: false, message: error.message });
   }
 };
 

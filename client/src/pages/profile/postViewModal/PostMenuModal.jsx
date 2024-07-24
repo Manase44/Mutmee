@@ -41,7 +41,7 @@ const PostMenuModal = ({ open, close, postId }) => {
       }
     } catch (error) {
       console.log(error);
-      toast(response.data.message, {
+      toast(error.response.data.message, {
         theme: "failure",
         duration: 4000,
         position: "top-right",

@@ -14,6 +14,7 @@ import "react-simple-toasts/dist/theme/success.css";
 
 const UpdateProfile = () => {
   const user = userDetailsStore((state) => state.user);
+  const setUser = userDetailsStore((state) => state.setUser);
   const [editWebsite, setEditWebsite] = useState(false);
   const [editBio, setEditBio] = useState(false);
   const [editRole, setEditRole] = useState(false);
@@ -22,7 +23,6 @@ const UpdateProfile = () => {
   const [imageLink, setImageLink] = useState(null);
   const [loading, setLoading] = useState(false);
   const [generatingImageUrl, setGeneratingImageUrl] = useState();
-  const [userProfile, setUserProfile] = useState();
 
   const uploadImage = async () => {
     setGeneratingImageUrl(true);
@@ -57,7 +57,6 @@ const UpdateProfile = () => {
       const response = await axios.patch(`${server_url}/user/profile`, data, {
         withCredentials: true,
       });
-      console.log(response);
       if (response.data.ok) {
         toast(response.data.message, {
           theme: "success",
@@ -65,7 +64,15 @@ const UpdateProfile = () => {
           position: "top-right",
         });
         setError(null);
-        setUserProfile(response.data.userProfile);
+        const updatedUser = {
+          userId: user.userId,
+          userName: user.userName,
+          role: response.data.userProfile.role,
+          imageUrl: response.data.userProfile.imageUrl,
+          bio: response.data.userProfile.bio,
+          website: response.data.userProfile.website,
+        };
+        setUser(updatedUser);
       }
     } catch (error) {
       console.log(error);
@@ -85,7 +92,9 @@ const UpdateProfile = () => {
     onSubmit: (data) => {
       uploadImage();
       data.imageUrl = imageLink;
-      // console.log("hey",imageLink)
+      console.log(imageLink);
+      console.log(data);
+      console.log(error);
       if (!error) {
         postUserUpdateDetails(data);
       }
@@ -137,14 +146,11 @@ const UpdateProfile = () => {
         <div className="input-wrapper">
           <select
             name="role"
-            id="role"
             disabled={!editRole}
             onChange={userDetailsUpdateForm.handleChange}
             value={userDetailsUpdateForm.values.role}
           >
-            {!user.role && !editRole && (
-              <option value="student">No role!</option>
-            )}
+            {!user.role && !editRole && <option value="">No role!</option>}
             <option value="">select a role</option>
             <option value="student">student</option>
             <option value="lecturer">lecturer</option>

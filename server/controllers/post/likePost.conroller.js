@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 const likePost = async (req, res) => {
   const user = req.user;
   const postId = req.params.id;
+  console.log("user");
   try {
     if (!user) {
       return res.status(401).json({ ok: false, message: "Access denied" });
@@ -31,14 +32,13 @@ const likePost = async (req, res) => {
 
     const existingLike = await prisma.like.findUnique({
       where: {
-        postLiked_userLiked:{
-          postLiked:likedPost.postId,
-          userLiked:user.userId
-        }
+        postLiked_userLiked: {
+          postLiked: likedPost.postId,
+          userLiked: user.userId,
+        },
       },
     });
 
-   
     if (existingLike) {
       return res.status(400).json({ ok: false, message: "Already liked" });
     }
@@ -52,10 +52,10 @@ const likePost = async (req, res) => {
 
     const postLikes = await prisma.like.findMany({
       where: {
-        postLiked: likePost,
+        postLiked: likePost.postLiked,
       },
     });
-    
+
     if (likePost) {
       return res
         .status(201)
