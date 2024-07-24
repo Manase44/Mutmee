@@ -17,6 +17,7 @@ const likePost = async (req, res) => {
     if (!userLiked) {
       return res.status(400).json({ ok: false, message: "invalid user" });
     }
+
     const likedPost = await prisma.post.findUnique({
       where: {
         postId,
@@ -28,23 +29,17 @@ const likePost = async (req, res) => {
         .json({ ok: false, message: "The post does no exist" });
     }
 
-    const userAllLikes = await prisma.like.findMany({
+    const existingLike = await prisma.like.findUnique({
       where: {
-        userLiked: user.userId,
+        postLiked_userLiked:{
+          postLiked:likedPost.postId,
+          userLiked:user.userId
+        }
       },
     });
 
-    const likedPosts = await Promise.all(
-      userAllLikes.map(async (like) => {
-        const correspondingPost = like.postLiked;
-
-        return correspondingPost;
-      }),
-    );
-    console.log(likedPosts);
-    const checkMatch = likedPosts.includes(likedPost);
-
-    if (checkMatch) {
+   
+    if (existingLike) {
       return res.status(400).json({ ok: false, message: "Already liked" });
     }
 
@@ -60,6 +55,7 @@ const likePost = async (req, res) => {
         postLiked: likePost,
       },
     });
+    
     if (likePost) {
       return res
         .status(201)
