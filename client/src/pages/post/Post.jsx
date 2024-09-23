@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import toast from "react-simple-toasts";
 import "react-simple-toasts/dist/theme/success.css";
+import PostArticle from "./PostArticle";
 
 const Post = () => {
   const [media, setMedia] = useState(true);
@@ -22,6 +23,10 @@ const Post = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+ 
+
+  // console.log(articleContent)
 
   const handleUploadImage = async () => {
     setImageUrlGenerating(true);
@@ -72,6 +77,7 @@ const Post = () => {
     }
   };
 
+
   const handlePostForm = useFormik({
     initialValues: {
       mediaUrl: "",
@@ -84,6 +90,8 @@ const Post = () => {
       submitPost(data);
     },
   });
+
+  
 
   return (
     <div className="post-container">
@@ -209,9 +217,7 @@ const Post = () => {
           </>
         ) : (
           article && (
-            <div>
-              <form></form>
-            </div>
+              <PostArticle/>
           )
         )}
       </div>

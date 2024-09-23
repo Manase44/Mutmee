@@ -11,6 +11,7 @@ import userDetailsStore from "../../store/currentUser.store";
 import useRefferedUserStore from "../../store/refferedUserId.store";
 import axios from "axios";
 import { server_url } from "../../../utils/configurations";
+import RefferedProfile from "../profile/RefferedProfile";
 
 const Home = () => {
   const user = userDetailsStore((state) => state.user);
@@ -92,6 +93,7 @@ const Home = () => {
   useEffect(() => {
     submitPostLike(likedPostId);
   }, [likedPostId]);
+
 
   const suggestions = [1, 2, 3, 4];
   return (

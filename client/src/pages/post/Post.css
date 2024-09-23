@@ -119,6 +119,22 @@
   color: var(--text-color);
 }
 
+
+
+
+
+
+.article-editor{
+  width: 75vw;
+  margin-top: .5rem;
+}
+.article-image-input-name{
+  text-align: center;
+  padding: .5rem 0;
+  color: var(--theme-color);
+  font-size: 13px;
+}
+
 @media screen and (max-width: 992px) {
   .upload-post-card {
     width: 70%;

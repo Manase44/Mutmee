@@ -43,9 +43,9 @@ body {
 
 button {
   width: 100%;
-  background-color: var(--theme-color);
-  color: var(--light-background);
-  border: none;
+  color: var(--text-color);
+  background-color: transparent;
+  border: 1px solid var(--theme-color);
   padding: 0.5rem 1rem;
   border-radius: var(--radius);
   font-size: 18px;
@@ -57,9 +57,9 @@ button {
 
 button:hover {
   cursor: pointer;
-  background-color: transparent;
-  color: var(--theme-color);
-  border: 1px solid var(--theme-color);
+  background-color: var(--theme-color);
+  /* color: var(--theme-color); */
+  border: none;
 }
 
 a {
