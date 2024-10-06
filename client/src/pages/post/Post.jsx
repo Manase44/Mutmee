@@ -24,8 +24,6 @@ const Post = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
- 
-
   // console.log(articleContent)
 
   const handleUploadImage = async () => {
@@ -77,7 +75,6 @@ const Post = () => {
     }
   };
 
-
   const handlePostForm = useFormik({
     initialValues: {
       mediaUrl: "",
@@ -90,8 +87,6 @@ const Post = () => {
       submitPost(data);
     },
   });
-
-  
 
   return (
     <div className="post-container">
@@ -216,9 +211,7 @@ const Post = () => {
             )}
           </>
         ) : (
-          article && (
-              <PostArticle/>
-          )
+          article && <PostArticle />
         )}
       </div>
     </div>

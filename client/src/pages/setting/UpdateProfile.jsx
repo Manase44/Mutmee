@@ -1,16 +1,13 @@
 import { useState } from "react";
 import userDetailsStore from "../../store/currentUser.store";
-import {
-  cloud_name,
-  server_url,
-  upload_preset,
-} from "../../../utils/configurations";
+import { server_url } from "../../../utils/configurations";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
 import toast from "react-simple-toasts";
 import "react-simple-toasts/dist/theme/success.css";
+import { uploadImage } from "../../../utils/methods";
 
 const UpdateProfile = () => {
   const user = userDetailsStore((state) => state.user);
@@ -20,39 +17,10 @@ const UpdateProfile = () => {
   const [editRole, setEditRole] = useState(false);
   const [imageInput, setImageInput] = useState(null);
   const [error, setError] = useState(null);
-  const [imageLink, setImageLink] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [generatingImageUrl, setGeneratingImageUrl] = useState();
-
-  const uploadImage = async () => {
-    setGeneratingImageUrl(true);
-    const payload = new FormData();
-    payload.append("file", imageInput);
-    payload.append("upload_preset", upload_preset);
-    try {
-      const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloud_name}/upload`,
-        payload,
-      );
-
-      if (response.statusText === "OK") {
-        setError(null);
-
-        const secureUrl = response.data.secure_url;
-        setImageLink(
-          secureUrl.replace("/upload", "/upload/w_400/f_auto/q_auto"),
-        );
-      }
-    } catch (error) {
-      console.log(error);
-      setError("someting went wrong while uploading this image!");
-    } finally {
-      setGeneratingImageUrl(false);
-    }
-  };
 
   const postUserUpdateDetails = async (data) => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const response = await axios.patch(`${server_url}/user/profile`, data, {
         withCredentials: true,
@@ -90,15 +58,23 @@ const UpdateProfile = () => {
       role: user.role,
     },
     onSubmit: async (data) => {
+      setLoading(true);
       if (imageInput) {
-        await uploadImage();
+        const response = await uploadImage(imageInput);
+
+        if (!response.ok) {
+          setError(response.message);
+          setLoading(false);
+          return;
+        }
+        if (response.ok) {
+          data.imageUrl = response.message;
+          postUserUpdateDetails(data);
+        }
       }
-      if (imageLink) {
-        data.imageUrl = imageLink;
-      }
-      postUserUpdateDetails(data);
     },
   });
+
   return (
     <form
       onSubmit={userDetailsUpdateForm.handleSubmit}
@@ -131,12 +107,8 @@ const UpdateProfile = () => {
           </div>
         </div>
 
-        {error ? (
-          <p className="edit-photo-selected-image">{error}</p>
-        ) : (
-          imageInput && (
-            <span className="edit-photo-selected-image">{imageInput.name}</span>
-          )
+        {imageInput && (
+          <span className="edit-photo-selected-image">{imageInput.name}</span>
         )}
       </>
 
@@ -221,21 +193,9 @@ const UpdateProfile = () => {
           Portfolio / organization / personal website.
         </p>
       </div>
+      {error && <p className="error">{error}</p>}
       <button type="submit">
-        {generatingImageUrl ? (
-          <span className="updating-button">
-            <Oval
-              visible={true}
-              height="20"
-              width="20"
-              color="#4fa94d"
-              ariaLabel="oval-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-            />
-            uploading...
-          </span>
-        ) : loading ? (
+        {loading ? (
           <span className="updating-button">
             <Oval
               visible={true}

@@ -94,7 +94,6 @@ const Home = () => {
     submitPostLike(likedPostId);
   }, [likedPostId]);
 
-
   const suggestions = [1, 2, 3, 4];
   return (
     <>

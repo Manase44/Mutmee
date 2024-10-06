@@ -119,18 +119,13 @@
   color: var(--text-color);
 }
 
-
-
-
-
-
-.article-editor{
+.article-editor {
   width: 75vw;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
-.article-image-input-name{
+.article-image-input-name {
   text-align: center;
-  padding: .5rem 0;
+  padding: 0.5rem 0;
   color: var(--theme-color);
   font-size: 13px;
 }
