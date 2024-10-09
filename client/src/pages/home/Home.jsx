@@ -51,6 +51,20 @@ const Home = () => {
     }
   };
 
+  const addComment = async (data) => {
+    try {
+      const response = await axios.post(`${server_url}/post/comment`, data, {
+        withCredentials: true,
+      });
+
+      if (response.data.ok) {
+        console.log(response);
+        setCommentingPostId(null);
+      }
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
   const handleCommentingForm = useFormik({
     initialValues: {
       postId: "",
@@ -58,6 +72,7 @@ const Home = () => {
     },
     onSubmit: (data) => {
       data.postId = commentingPostId;
+      addComment(data);
       console.log(data);
     },
   });
