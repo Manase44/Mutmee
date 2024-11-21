@@ -19,6 +19,9 @@ model User{
   comments Comment[]
   articles Article[]
   liked Like[]
+
+  followers Follow[] @relation("followers")
+  following Follow[] @relation("following")
 }
 
 model Profile{
@@ -30,6 +33,18 @@ model Profile{
 
   userId String @unique
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Follow{
+  id String @id @default(uuid())
+  followerId String
+  followingId String
+  createdAt DateTime @default(now())
+
+  follower User @relation("followers", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followingId, followerId])
 }
 
 model Post{

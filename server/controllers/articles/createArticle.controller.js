@@ -39,7 +39,7 @@ const createArticle = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       ok: false,
-      message: "something went wrong",
+      message: error.message,
     });
   }
 };

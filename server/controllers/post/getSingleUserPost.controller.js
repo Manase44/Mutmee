@@ -18,7 +18,7 @@ const getPostOfSpecificUser = async (req, res) => {
       },
     });
     if (userPosts.length < 1) {
-      return res.status(404).json({ ok: false, message: "No post yet" });
+      return res.status(404).json({ ok: true, message: "No post yet" });
     }
 
     const posts = await Promise.all(
