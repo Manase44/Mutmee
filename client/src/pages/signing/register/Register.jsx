@@ -40,6 +40,7 @@ const Register = () => {
   const handleRegisterUser = async (data) => {
     setLoading(true);
     try {
+      console.log(server_url)
       const response = await axios.post(`${server_url}/user/register`, data);
       if (response.data.ok) {
         setError(null);
@@ -51,7 +52,7 @@ const Register = () => {
         navigate("/");
       }
     } catch (error) {
-      setError(error.response.data.message);
+      console.log(error);
     } finally {
       setLoading(false);
     }

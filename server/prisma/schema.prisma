@@ -19,6 +19,8 @@ model User{
   comments Comment[]
   articles Article[]
   liked Like[]
+
+  @@map("users")
 }
 
 model Profile{

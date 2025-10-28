@@ -41,6 +41,7 @@ const Login = () => {
       const response = await axios.post(`${server_url}/user/login`, data, {
         withCredentials: true,
       });
+      console.log(response)
       if (response.data.ok) {
         const user = {
           userId: response.data.user.userId,
@@ -63,6 +64,7 @@ const Login = () => {
         navigate("/");
       }
     } catch (error) {
+      console.log(error)
       setError(error.response.data.message);
     } finally {
       setLoading(false);
